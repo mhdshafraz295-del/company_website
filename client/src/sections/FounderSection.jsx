@@ -34,10 +34,7 @@ export default function FounderSection() {
               <div className="md:col-span-5 lg:col-span-4 flex flex-col items-center text-center">
                 <TiltCard className="relative group">
                   <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-3xl blur opacity-30 group-hover:opacity-60 transition duration-300" />
-                  <div
-                    className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-3xl bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center shadow-xl"
-                    style={{ transform: 'translateZ(20px)' }}
-                  >
+                  <div className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-3xl bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center shadow-xl">
                     {founder.photo ? (
                       <img
                         src={getImageUrl(founder.photo)}

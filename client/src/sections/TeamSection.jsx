@@ -32,13 +32,10 @@ export default function TeamSection() {
         {/* Team Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
           {team.map((member, idx) => (
-            <Reveal3D key={member.id} delay={idx * 0.05}>
+            <Reveal3D key={member.id} delay={idx * 0.04}>
               <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 rounded-3xl p-6 text-center space-y-4 shadow-xl shadow-slate-200/40 hover:shadow-2xl flex flex-col justify-between h-full">
-                <div className="space-y-3 flex flex-col items-center" style={{ transformStyle: 'preserve-3d' }}>
-                  <div
-                    className="w-24 h-24 rounded-2xl bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center shadow-inner"
-                    style={{ transform: 'translateZ(20px)' }}
-                  >
+                <div className="space-y-3 flex flex-col items-center">
+                  <div className="w-24 h-24 rounded-2xl bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center shadow-inner">
                     {member.photo ? (
                       <img
                         src={getImageUrl(member.photo)}
@@ -54,7 +51,7 @@ export default function TeamSection() {
                     )}
                   </div>
 
-                  <div style={{ transform: 'translateZ(14px)' }}>
+                  <div>
                     <h3 className="text-base font-bold text-slate-900">{member.name}</h3>
                     <p className="text-xs font-bold text-cyan-700 uppercase tracking-wider mt-0.5">
                       {member.position}
@@ -62,17 +59,14 @@ export default function TeamSection() {
                   </div>
 
                   {member.shortBio && (
-                    <p className="text-xs text-slate-600 leading-relaxed max-w-xs" style={{ transform: 'translateZ(8px)' }}>
+                    <p className="text-xs text-slate-600 leading-relaxed max-w-xs">
                       {member.shortBio}
                     </p>
                   )}
                 </div>
 
                 {/* Social Links */}
-                <div
-                  className="flex items-center justify-center space-x-3 pt-3 border-t border-slate-200/80 mt-auto"
-                  style={{ transform: 'translateZ(12px)' }}
-                >
+                <div className="flex items-center justify-center space-x-3 pt-3 border-t border-slate-200/80 mt-auto">
                   {member.linkedinUrl && (
                     <a
                       href={member.linkedinUrl}

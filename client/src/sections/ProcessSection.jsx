@@ -19,6 +19,7 @@ const stages = [
 export default function ProcessSection() {
   const sectionRef = useRef(null);
   const scrollProgress = useRef(0);
+  const prevStageIdxRef = useRef(0);
   const [activeStageIdx, setActiveStageIdx] = useState(0);
   const [isTouchOrSmallScreen, setIsTouchOrSmallScreen] = useState(false);
 
@@ -47,7 +48,10 @@ export default function ProcessSection() {
         stages.length - 1,
         Math.max(0, Math.floor(v * stages.length))
       );
-      setActiveStageIdx(currentIdx);
+      if (currentIdx !== prevStageIdxRef.current) {
+        prevStageIdxRef.current = currentIdx;
+        setActiveStageIdx(currentIdx);
+      }
     });
     return () => unsubscribe();
   }, [scrollYProgress]);

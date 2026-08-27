@@ -29,12 +29,12 @@ export default function TestimonialsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {testimonials.map((t, idx) => (
             <Reveal3D key={t.id} delay={idx * 0.05}>
-              <TiltCard maxTiltX={2} maxTiltY={3} className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 shadow-xl shadow-slate-200/40 rounded-3xl p-6 sm:p-7 space-y-4 flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative h-full">
+              <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 shadow-xl shadow-slate-200/40 rounded-3xl p-6 sm:p-7 space-y-4 flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative h-full">
                 <Quote className="w-8 h-8 text-cyan-200 absolute top-5 right-5" />
 
-                <div className="space-y-3" style={{ transformStyle: 'preserve-3d' }}>
+                <div className="space-y-3">
                   {/* Rating Stars */}
-                  <div className="flex items-center space-x-1 text-amber-400" style={{ transform: 'translateZ(12px)' }}>
+                  <div className="flex items-center space-x-1 text-amber-400">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
@@ -45,12 +45,12 @@ export default function TestimonialsSection() {
                     ))}
                   </div>
 
-                  <p className="text-xs sm:text-sm text-slate-600 italic leading-relaxed" style={{ transform: 'translateZ(8px)' }}>
+                  <p className="text-xs sm:text-sm text-slate-600 italic leading-relaxed">
                     "{t.review}"
                   </p>
                 </div>
 
-                <div className="flex items-center space-x-3 pt-4 border-t border-slate-200/80 mt-auto" style={{ transform: 'translateZ(10px)' }}>
+                <div className="flex items-center space-x-3 pt-4 border-t border-slate-200/80 mt-auto">
                   <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center shrink-0">
                     {t.profileImage ? (
                       <img

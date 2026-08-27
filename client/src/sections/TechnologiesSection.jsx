@@ -59,17 +59,17 @@ export default function TechnologiesSection() {
           {techCategories.map((group, idx) => {
             const Icon = group.icon;
             return (
-              <Reveal3D key={group.category} delay={idx * 0.06}>
+              <Reveal3D key={group.category} delay={idx * 0.04}>
                 <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 shadow-xl shadow-slate-200/40 rounded-3xl p-6 sm:p-7 space-y-4 hover:shadow-2xl hover:border-cyan-300 flex flex-col justify-between h-full">
-                  <div className="space-y-4" style={{ transformStyle: 'preserve-3d' }}>
-                    <div className="flex items-center space-x-3" style={{ transform: 'translateZ(20px)' }}>
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-3">
                       <div className={`p-2.5 rounded-2xl border ${group.color}`}>
                         <Icon className="w-5 h-5" />
                       </div>
                       <h3 className="text-base font-bold text-slate-900">{group.category}</h3>
                     </div>
 
-                    <div className="flex flex-wrap gap-2 pt-1" style={{ transform: 'translateZ(12px)' }}>
+                    <div className="flex flex-wrap gap-2 pt-1">
                       {group.skills.map((skill) => (
                         <span
                           key={skill}

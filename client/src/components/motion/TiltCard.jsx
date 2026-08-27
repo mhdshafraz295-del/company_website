@@ -4,9 +4,9 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 export default function TiltCard({
   children,
   className = '',
-  maxTiltX = 4,
-  maxTiltY = 6,
-  liftOnHover = -6,
+  maxTiltX = 2,
+  maxTiltY = 3,
+  liftOnHover = -4,
   disabled = false,
   ...props
 }) {
@@ -74,7 +74,6 @@ export default function TiltCard({
         rotateX,
         rotateY,
         translateY,
-        transformStyle: 'preserve-3d',
         perspective: 1000,
       }}
       className={`transition-shadow duration-300 ${className}`}

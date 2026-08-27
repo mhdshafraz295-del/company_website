@@ -5,10 +5,10 @@ export default function Reveal3D({
   children,
   className = '',
   delay = 0,
-  duration = 0.6,
-  yOffset = 30,
-  rotateXOffset = 3,
-  scaleOffset = 0.98,
+  duration = 0.5,
+  yOffset = 24,
+  rotateXOffset = 0,
+  scaleOffset = 0.985,
   once = true,
   ...props
 }) {
@@ -24,7 +24,7 @@ export default function Reveal3D({
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once, margin: '-50px' }}
+        viewport={{ once, amount: 0.1 }}
         transition={{ duration: 0.4, delay }}
         className={className}
         {...props}
@@ -34,17 +34,23 @@ export default function Reveal3D({
     );
   }
 
+  const initialProps = { opacity: 0, y: yOffset, scale: scaleOffset };
+  const animateProps = { opacity: 1, y: 0, scale: 1 };
+  if (rotateXOffset !== 0) {
+    initialProps.rotateX = rotateXOffset;
+    animateProps.rotateX = 0;
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: yOffset, rotateX: rotateXOffset, scale: scaleOffset }}
-      whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
-      viewport={{ once, margin: '-50px' }}
+      initial={initialProps}
+      whileInView={animateProps}
+      viewport={{ once, amount: 0.1 }}
       transition={{
         duration,
         delay,
         ease: [0.21, 0.47, 0.32, 0.98],
       }}
-      style={{ transformStyle: 'preserve-3d' }}
       className={className}
       {...props}
     >

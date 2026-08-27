@@ -69,19 +69,16 @@ export default function WhyChooseUsSection() {
           {benefits.map((b, idx) => {
             const Icon = b.icon;
             return (
-              <Reveal3D key={b.title} delay={idx * 0.04}>
+              <Reveal3D key={b.title} delay={idx * 0.03}>
                 <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 rounded-3xl p-6 space-y-3 flex flex-col justify-between h-full shadow-xl shadow-slate-200/40 hover:shadow-2xl">
-                  <div className="space-y-3" style={{ transformStyle: 'preserve-3d' }}>
-                    <div
-                      className="p-3 bg-gradient-to-br from-cyan-50 to-blue-50 border border-cyan-100 rounded-2xl text-cyan-600 w-fit shadow-sm"
-                      style={{ transform: 'translateZ(20px)' }}
-                    >
+                  <div className="space-y-3">
+                    <div className="p-3 bg-gradient-to-br from-cyan-50 to-blue-50 border border-cyan-100 rounded-2xl text-cyan-600 w-fit shadow-sm">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="text-base font-bold text-slate-900" style={{ transform: 'translateZ(14px)' }}>
+                    <h3 className="text-base font-bold text-slate-900">
                       {b.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed" style={{ transform: 'translateZ(8px)' }}>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                       {b.description}
                     </p>
                   </div>

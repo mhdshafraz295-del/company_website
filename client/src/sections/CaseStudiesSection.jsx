@@ -32,25 +32,19 @@ export default function CaseStudiesSection() {
         {/* Case Studies Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {caseStudies.map((study, idx) => (
-            <Reveal3D key={study.id} delay={idx * 0.08}>
+            <Reveal3D key={study.id} delay={idx * 0.05}>
               <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-blue-300 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl shadow-slate-200/40 hover:shadow-2xl flex flex-col justify-between h-full">
-                <div className="space-y-4" style={{ transformStyle: 'preserve-3d' }}>
-                  <div
-                    className="flex items-center space-x-2 text-cyan-700 text-xs font-bold uppercase tracking-wider"
-                    style={{ transform: 'translateZ(16px)' }}
-                  >
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-2 text-cyan-700 text-xs font-bold uppercase tracking-wider">
                     <BookOpen className="w-4 h-4" />
                     <span>Case Study</span>
                   </div>
 
-                  <h3
-                    className="text-xl font-bold text-slate-900 leading-snug"
-                    style={{ transform: 'translateZ(18px)' }}
-                  >
+                  <h3 className="text-xl font-bold text-slate-900 leading-snug">
                     {study.title}
                   </h3>
 
-                  <div className="space-y-3 text-xs sm:text-sm text-slate-600" style={{ transform: 'translateZ(8px)' }}>
+                  <div className="space-y-3 text-xs sm:text-sm text-slate-600">
                     <div>
                       <span className="font-bold text-slate-900 block mb-1">Problem:</span>
                       <p className="text-slate-600 line-clamp-2">{study.problem}</p>
@@ -68,7 +62,7 @@ export default function CaseStudiesSection() {
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-200 mt-auto" style={{ transform: 'translateZ(14px)' }}>
+                <div className="pt-4 border-t border-slate-200 mt-auto">
                   <Link
                     to={`/case-studies/${study.slug}`}
                     className="inline-flex items-center space-x-2 text-xs font-bold text-cyan-600 hover:text-cyan-700 transition-colors"

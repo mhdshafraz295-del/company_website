@@ -37,17 +37,14 @@ export default function AboutSection() {
           {/* Mission Card */}
           <Reveal3D delay={0.1}>
             <TiltCard className="bg-white/80 backdrop-blur-xl border border-white/90 shadow-xl shadow-slate-200/50 rounded-3xl p-6 sm:p-8 space-y-4 hover:shadow-2xl hover:border-cyan-200 flex flex-col justify-between h-full">
-              <div className="space-y-4" style={{ transformStyle: 'preserve-3d' }}>
-                <div
-                  className="p-3 bg-cyan-50 border border-cyan-100 rounded-2xl text-cyan-600 w-fit"
-                  style={{ transform: 'translateZ(24px)' }}
-                >
+              <div className="space-y-4">
+                <div className="p-3 bg-cyan-50 border border-cyan-100 rounded-2xl text-cyan-600 w-fit">
                   <Target className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900" style={{ transform: 'translateZ(16px)' }}>
+                <h3 className="text-xl font-bold text-slate-900">
                   Our Mission
                 </h3>
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed" style={{ transform: 'translateZ(8px)' }}>
+                <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
                   To transform ideas into practical digital products using modern technology, thoughtful design, and dependable development practices.
                 </p>
               </div>
@@ -57,17 +54,14 @@ export default function AboutSection() {
           {/* Vision Card */}
           <Reveal3D delay={0.2}>
             <TiltCard className="bg-white/80 backdrop-blur-xl border border-white/90 shadow-xl shadow-slate-200/50 rounded-3xl p-6 sm:p-8 space-y-4 hover:shadow-2xl hover:border-blue-200 flex flex-col justify-between h-full">
-              <div className="space-y-4" style={{ transformStyle: 'preserve-3d' }}>
-                <div
-                  className="p-3 bg-blue-50 border border-blue-100 rounded-2xl text-blue-600 w-fit"
-                  style={{ transform: 'translateZ(24px)' }}
-                >
+              <div className="space-y-4">
+                <div className="p-3 bg-blue-50 border border-blue-100 rounded-2xl text-blue-600 w-fit">
                   <Compass className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900" style={{ transform: 'translateZ(16px)' }}>
+                <h3 className="text-xl font-bold text-slate-900">
                   Our Vision
                 </h3>
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed" style={{ transform: 'translateZ(8px)' }}>
+                <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
                   To become a trusted technology partner for businesses and organizations by delivering innovative, scalable, and reliable digital solutions.
                 </p>
               </div>

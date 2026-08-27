@@ -82,10 +82,7 @@ export default function PortfolioSection() {
               <Reveal3D key={project.id} delay={idx * 0.05}>
                 <TiltCard className="group bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 rounded-3xl overflow-hidden shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-cyan-500/10 flex flex-col justify-between h-full">
                   {/* Cover Image or Fallback Header */}
-                  <div
-                    className="relative h-48 bg-slate-100 overflow-hidden flex items-center justify-center border-b border-slate-200/80"
-                    style={{ transform: 'translateZ(20px)' }}
-                  >
+                  <div className="relative h-48 bg-slate-100 overflow-hidden flex items-center justify-center border-b border-slate-200/80">
                     {project.coverImage ? (
                       <img
                         src={getImageUrl(project.coverImage)}
@@ -108,15 +105,9 @@ export default function PortfolioSection() {
                   </div>
 
                   {/* Card Content */}
-                  <div
-                    className="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between"
-                    style={{ transformStyle: 'preserve-3d' }}
-                  >
+                  <div className="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between">
                     <div className="space-y-2">
-                      <div
-                        className="flex items-center justify-between text-[11px]"
-                        style={{ transform: 'translateZ(12px)' }}
-                      >
+                      <div className="flex items-center justify-between text-[11px]">
                         <span className="text-cyan-700 font-semibold uppercase tracking-wider">
                           {categoryLabelMap[project.category] || project.category}
                         </span>
@@ -127,10 +118,7 @@ export default function PortfolioSection() {
                         )}
                       </div>
 
-                      <h3
-                        className="text-lg font-bold text-slate-900 group-hover:text-cyan-600 transition-colors"
-                        style={{ transform: 'translateZ(16px)' }}
-                      >
+                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-cyan-600 transition-colors">
                         {project.title}
                       </h3>
 
@@ -141,10 +129,7 @@ export default function PortfolioSection() {
 
                     {/* Technologies Tags */}
                     {project.technologies && project.technologies.length > 0 && (
-                      <div
-                        className="flex flex-wrap gap-1.5 pt-2"
-                        style={{ transform: 'translateZ(8px)' }}
-                      >
+                      <div className="flex flex-wrap gap-1.5 pt-2">
                         {project.technologies.slice(0, 4).map((tech) => (
                           <span
                             key={tech.id || tech.name}
@@ -157,7 +142,7 @@ export default function PortfolioSection() {
                     )}
 
                     {/* Link Action */}
-                    <div className="pt-2 mt-auto" style={{ transform: 'translateZ(14px)' }}>
+                    <div className="pt-2 mt-auto">
                       <Link
                         to={`/projects/${project.slug}`}
                         className="inline-flex items-center space-x-1.5 text-xs font-bold text-cyan-600 hover:text-cyan-700 transition-colors"

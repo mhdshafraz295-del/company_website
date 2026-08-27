@@ -65,23 +65,17 @@ export default function ServicesSection() {
               return (
                 <Reveal3D key={service.id} delay={idx * 0.05}>
                   <TiltCard className="group bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-400 shadow-xl shadow-slate-200/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between h-full hover:shadow-2xl hover:shadow-cyan-500/10">
-                    <div className="space-y-4" style={{ transformStyle: 'preserve-3d' }}>
-                      <div
-                        className="p-3.5 bg-gradient-to-br from-cyan-50 to-blue-50 border border-cyan-100 rounded-2xl text-cyan-600 w-fit shadow-sm"
-                        style={{ transform: 'translateZ(24px)' }}
-                      >
+                    <div className="space-y-4">
+                      <div className="p-3.5 bg-gradient-to-br from-cyan-50 to-blue-50 border border-cyan-100 rounded-2xl text-cyan-600 w-fit shadow-sm">
                         <IconComponent className="w-6 h-6" />
                       </div>
 
-                      <div className="space-y-2" style={{ transform: 'translateZ(16px)' }}>
+                      <div className="space-y-2">
                         <h3 className="text-lg font-bold text-slate-900 group-hover:text-cyan-600 transition-colors flex items-center justify-between">
                           <span>{service.title}</span>
                           <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-cyan-600 transition-colors" />
                         </h3>
-                        <p
-                          className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3"
-                          style={{ transform: 'translateZ(8px)' }}
-                        >
+                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
                           {service.shortDescription}
                         </p>
                       </div>
