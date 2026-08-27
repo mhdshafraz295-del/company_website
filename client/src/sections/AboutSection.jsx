@@ -24,10 +24,10 @@ export default function AboutSection() {
             <Sparkles className="w-3.5 h-3.5" />
             <span>About NexGen Solutions</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Engineering High-Performance Digital Products
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            Engineering Modern Digital Excellence
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
             NexGen Solutions is a modern technology company focused on creating reliable, scalable, and visually impressive digital solutions for businesses and organizations.
           </p>
         </Reveal3D>
@@ -36,15 +36,15 @@ export default function AboutSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Mission Card */}
           <Reveal3D delay={0.02}>
-            <TiltCard className="bg-white/80 backdrop-blur-xl border border-white/90 shadow-xl shadow-slate-200/50 rounded-3xl p-6 sm:p-8 space-y-4 hover:shadow-2xl hover:border-cyan-200 flex flex-col justify-between h-full">
+            <TiltCard className="bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border border-white/90 dark:border-slate-800/90 shadow-xl shadow-slate-200/50 dark:shadow-slate-950/50 rounded-3xl p-6 sm:p-8 space-y-4 hover:shadow-2xl hover:border-cyan-200 dark:hover:border-cyan-500/50 flex flex-col justify-between h-full">
               <div className="space-y-4">
-                <div className="p-3 bg-cyan-50 border border-cyan-100 rounded-2xl text-cyan-600 w-fit">
+                <div className="p-3 bg-cyan-50 dark:bg-cyan-950/50 border border-cyan-100 dark:border-cyan-800/50 rounded-2xl text-cyan-600 dark:text-cyan-400 w-fit">
                   <Target className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                   Our Mission
                 </h3>
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
                   To transform ideas into practical digital products using modern technology, thoughtful design, and dependable development practices.
                 </p>
               </div>
@@ -53,15 +53,15 @@ export default function AboutSection() {
 
           {/* Vision Card */}
           <Reveal3D delay={0.04}>
-            <TiltCard className="bg-white/80 backdrop-blur-xl border border-white/90 shadow-xl shadow-slate-200/50 rounded-3xl p-6 sm:p-8 space-y-4 hover:shadow-2xl hover:border-blue-200 flex flex-col justify-between h-full">
+            <TiltCard className="bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border border-white/90 dark:border-slate-800/90 shadow-xl shadow-slate-200/50 dark:shadow-slate-950/50 rounded-3xl p-6 sm:p-8 space-y-4 hover:shadow-2xl hover:border-blue-200 dark:hover:border-blue-500/50 flex flex-col justify-between h-full">
               <div className="space-y-4">
-                <div className="p-3 bg-blue-50 border border-blue-100 rounded-2xl text-blue-600 w-fit">
+                <div className="p-3 bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-800/50 rounded-2xl text-blue-600 dark:text-blue-400 w-fit">
                   <Compass className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                   Our Vision
                 </h3>
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
                   To become a trusted technology partner for businesses and organizations by delivering innovative, scalable, and reliable digital solutions.
                 </p>
               </div>
@@ -71,12 +71,12 @@ export default function AboutSection() {
 
         {/* Core Values Section */}
         <Reveal3D delay={0.04}>
-          <div className="bg-white/80 backdrop-blur-xl border border-white/90 shadow-xl shadow-slate-200/50 rounded-3xl p-6 sm:p-8 space-y-6">
+          <div className="bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border border-white/90 dark:border-slate-800/90 shadow-xl shadow-slate-200/50 dark:shadow-slate-950/50 rounded-3xl p-6 sm:p-8 space-y-6">
             <div className="flex items-center space-x-3">
-              <div className="p-2.5 bg-teal-50 border border-teal-100 rounded-xl text-teal-600">
+              <div className="p-2.5 bg-teal-50 dark:bg-teal-950/50 border border-teal-100 dark:border-teal-800/50 rounded-xl text-teal-600 dark:text-teal-400">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-slate-900">Our Core Values</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Our Core Values</h3>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">

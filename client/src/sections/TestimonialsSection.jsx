@@ -13,15 +13,15 @@ export default function TestimonialsSection() {
   }
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-white relative z-10 select-none">
+    <section className="py-16 sm:py-20 lg:py-24 bg-white dark:bg-[#030712] relative z-10 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Section Header */}
         <Reveal3D className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-cyan-200 bg-cyan-50/80 text-cyan-700 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-cyan-200 dark:border-cyan-800 bg-cyan-50/80 dark:bg-cyan-950/50 text-cyan-700 dark:text-cyan-300 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Client Feedback</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             What Clients Say About NexGen
           </h2>
         </Reveal3D>
@@ -30,8 +30,8 @@ export default function TestimonialsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {testimonials.map((t, idx) => (
             <Reveal3D key={t.id} delay={idx * 0.02}>
-              <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 shadow-xl shadow-slate-200/40 rounded-3xl p-6 sm:p-7 space-y-4 flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative h-full">
-                <Quote className="w-8 h-8 text-cyan-200 absolute top-5 right-5" />
+              <TiltCard className="bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 hover:border-cyan-300 dark:hover:border-cyan-500/50 shadow-xl shadow-slate-200/40 dark:shadow-slate-950/40 rounded-3xl p-6 sm:p-7 space-y-4 flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative h-full">
+                <Quote className="w-8 h-8 text-cyan-200 dark:text-cyan-900/60 absolute top-5 right-5" />
 
                 <div className="space-y-3">
                   {/* Rating Stars */}
@@ -40,19 +40,19 @@ export default function TestimonialsSection() {
                       <Star
                         key={i}
                         className={`w-4 h-4 ${
-                          i < t.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-300'
+                          i < t.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-300 dark:text-slate-700'
                         }`}
                       />
                     ))}
                   </div>
 
-                  <p className="text-xs sm:text-sm text-slate-600 italic leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 italic leading-relaxed">
                     "{t.review}"
                   </p>
                 </div>
 
-                <div className="flex items-center space-x-3 pt-4 border-t border-slate-200/80 mt-auto">
-                  <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center shrink-0">
+                <div className="flex items-center space-x-3 pt-4 border-t border-slate-200/80 dark:border-slate-800 mt-auto">
+                  <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden flex items-center justify-center shrink-0">
                     {t.profileImage ? (
                       <img
                         src={getImageUrl(t.profileImage)}
@@ -64,13 +64,13 @@ export default function TestimonialsSection() {
                         }}
                       />
                     ) : (
-                      <User className="w-5 h-5 text-slate-400" />
+                      <User className="w-5 h-5 text-slate-400 dark:text-slate-600" />
                     )}
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-slate-900">{t.clientName}</h4>
+                    <h4 className="text-xs font-bold text-slate-900 dark:text-white">{t.clientName}</h4>
                     {(t.company || t.position) && (
-                      <p className="text-[11px] text-slate-500 font-medium">
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
                         {[t.position, t.company].filter(Boolean).join(', ')}
                       </p>
                     )}

@@ -9,17 +9,17 @@ export default function ContactCTASection() {
   const { settings } = usePublicData();
 
   return (
-    <section id="contact" className="py-16 sm:py-20 lg:py-24 bg-white relative z-10 select-none">
+    <section id="contact" className="py-16 sm:py-20 lg:py-24 bg-white dark:bg-[#030712] relative z-10 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal3D className="relative overflow-hidden bg-gradient-to-r from-cyan-50/90 via-blue-50/80 to-teal-50/90 border border-cyan-200/80 rounded-3xl p-8 sm:p-12 lg:p-16 shadow-2xl shadow-slate-200/50 backdrop-blur-xl">
-          <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 -mb-12 -ml-12 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl pointer-events-none" />
+        <Reveal3D className="relative overflow-hidden bg-gradient-to-r from-cyan-50/90 via-blue-50/80 to-teal-50/90 dark:from-[#0D1322]/90 dark:via-[#0F172A]/90 dark:to-[#0B101D]/90 border border-cyan-200/80 dark:border-slate-800 rounded-3xl p-8 sm:p-12 lg:p-16 shadow-2xl shadow-slate-200/50 dark:shadow-slate-950/50 backdrop-blur-xl">
+          <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-cyan-400/20 dark:bg-cyan-600/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 -mb-12 -ml-12 w-96 h-96 bg-blue-400/20 dark:bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-3xl sm:5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
               Have a Project in Mind?
             </h2>
-            <p className="text-slate-600 text-sm sm:text-lg leading-relaxed font-normal">
+            <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-lg leading-relaxed font-normal">
               Tell us what you want to build and let NexGen Solutions help turn your idea into a high-performance digital product.
             </p>
 
@@ -37,7 +37,7 @@ export default function ContactCTASection() {
 
               <Link
                 to="/contact"
-                className="w-full sm:w-auto bg-white/90 hover:bg-white text-slate-800 font-semibold border border-slate-200/90 shadow-sm hover:shadow py-3.5 px-8 rounded-xl transition-all flex items-center justify-center space-x-2 text-sm active:scale-95"
+                className="w-full sm:w-auto bg-white/90 dark:bg-slate-800/90 hover:bg-white dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 font-semibold border border-slate-200/90 dark:border-slate-700 shadow-sm hover:shadow py-3.5 px-8 rounded-xl transition-all flex items-center justify-center space-x-2 text-sm active:scale-95"
               >
                 <span>Contact Us</span>
               </Link>

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { PublicDataProvider } from './context/PublicDataContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 // Public Layout & Pages
 import PublicLayout from './layouts/PublicLayout';
@@ -33,9 +34,10 @@ import PublicAdminRoute from './admin/routes/PublicAdminRoute';
 export default function App() {
   return (
     <AuthProvider>
-      <PublicDataProvider>
-        <Router>
-          <Routes>
+      <ThemeProvider>
+        <PublicDataProvider>
+          <Router>
+            <Routes>
             {/* Public Customer Website Routes */}
             <Route path="/" element={<PublicLayout />}>
               <Route index element={<HomePage />} />
@@ -84,6 +86,7 @@ export default function App() {
           </Routes>
         </Router>
       </PublicDataProvider>
-    </AuthProvider>
-  );
+    </ThemeProvider>
+  </AuthProvider>
+);
 }

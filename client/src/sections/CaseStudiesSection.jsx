@@ -13,18 +13,18 @@ export default function CaseStudiesSection() {
   }
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-white relative z-10 select-none">
+    <section className="py-16 sm:py-20 lg:py-24 bg-white dark:bg-[#030712] relative z-10 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Section Header */}
         <Reveal3D className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-blue-200 bg-blue-50/80 text-blue-700 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50/80 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Proven Engineering Case Studies</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Problem, Solution & Impact
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
             In-depth analysis of technical challenges and practical software solutions delivered for clients.
           </p>
         </Reveal3D>
@@ -33,29 +33,29 @@ export default function CaseStudiesSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {caseStudies.map((study, idx) => (
             <Reveal3D key={study.id} delay={idx * 0.02}>
-              <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-blue-300 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl shadow-slate-200/40 hover:shadow-2xl flex flex-col justify-between h-full">
+              <TiltCard className="bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 hover:border-blue-300 dark:hover:border-blue-500/50 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl shadow-slate-200/40 dark:shadow-slate-950/40 hover:shadow-2xl flex flex-col justify-between h-full">
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-2 text-cyan-700 text-xs font-bold uppercase tracking-wider">
+                  <div className="flex items-center space-x-2 text-cyan-700 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider">
                     <BookOpen className="w-4 h-4" />
                     <span>Case Study</span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-900 leading-snug">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-snug">
                     {study.title}
                   </h3>
 
-                  <div className="space-y-3 text-xs sm:text-sm text-slate-600">
+                  <div className="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
                     <div>
-                      <span className="font-bold text-slate-900 block mb-1">Problem:</span>
-                      <p className="text-slate-600 line-clamp-2">{study.problem}</p>
+                      <span className="font-bold text-slate-900 dark:text-white block mb-1">Problem:</span>
+                      <p className="text-slate-600 dark:text-slate-300 line-clamp-2">{study.problem}</p>
                     </div>
                     <div>
-                      <span className="font-bold text-slate-900 block mb-1">Solution:</span>
-                      <p className="text-slate-600 line-clamp-2">{study.solution}</p>
+                      <span className="font-bold text-slate-900 dark:text-white block mb-1">Solution:</span>
+                      <p className="text-slate-600 dark:text-slate-300 line-clamp-2">{study.solution}</p>
                     </div>
                     {study.result && (
-                      <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs shadow-sm">
-                        <span className="font-bold block mb-0.5 text-emerald-900">Impact & Results:</span>
+                      <div className="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/50 text-emerald-800 dark:text-emerald-300 text-xs shadow-sm">
+                        <span className="font-bold block mb-0.5 text-emerald-900 dark:text-emerald-200">Impact & Results:</span>
                         <p className="line-clamp-2">{study.result}</p>
                       </div>
                     )}

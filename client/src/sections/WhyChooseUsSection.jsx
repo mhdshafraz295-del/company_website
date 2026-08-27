@@ -48,18 +48,18 @@ const benefits = [
 
 export default function WhyChooseUsSection() {
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-[#F8FAFC] relative z-10 select-none">
+    <section className="py-16 sm:py-20 lg:py-24 bg-[#F8FAFC] dark:bg-[#060913] relative z-10 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Section Header */}
         <Reveal3D className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-cyan-200 bg-cyan-50/80 text-cyan-700 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-cyan-200 dark:border-cyan-800 bg-cyan-50/80 dark:bg-cyan-950/50 text-cyan-700 dark:text-cyan-300 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Why Work With Us</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Built for Reliability & Client Success
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
             We focus on software quality, security, and clear communication to deliver digital solutions that last.
           </p>
         </Reveal3D>
@@ -70,15 +70,15 @@ export default function WhyChooseUsSection() {
             const Icon = b.icon;
             return (
               <Reveal3D key={b.title} delay={idx * 0.02}>
-                <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 rounded-3xl p-6 space-y-3 flex flex-col justify-between h-full shadow-xl shadow-slate-200/40 hover:shadow-2xl">
+                <TiltCard className="bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 hover:border-cyan-300 dark:hover:border-cyan-500/50 rounded-3xl p-6 space-y-3 flex flex-col justify-between h-full shadow-xl shadow-slate-200/40 dark:shadow-slate-950/40 hover:shadow-2xl">
                   <div className="space-y-3">
-                    <div className="p-3 bg-gradient-to-br from-cyan-50 to-blue-50 border border-cyan-100 rounded-2xl text-cyan-600 w-fit shadow-sm">
+                    <div className="p-3 bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 border border-cyan-100 dark:border-slate-700 rounded-2xl text-cyan-600 dark:text-cyan-400 w-fit shadow-sm">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="text-base font-bold text-slate-900">
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white">
                       {b.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                       {b.description}
                     </p>
                   </div>

@@ -17,14 +17,14 @@ export default function TeamSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Section Header */}
         <Reveal3D className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-blue-200 bg-blue-50/80 text-blue-700 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50/80 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Our Specialists</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Meet the Engineering Team
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
             Talented developers, designers, and IT professionals dedicated to crafting modern software.
           </p>
         </Reveal3D>
@@ -33,9 +33,9 @@ export default function TeamSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
           {team.map((member, idx) => (
             <Reveal3D key={member.id} delay={idx * 0.02}>
-              <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 rounded-3xl p-6 text-center space-y-4 shadow-xl shadow-slate-200/40 hover:shadow-2xl flex flex-col justify-between h-full">
+              <TiltCard className="bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 hover:border-cyan-300 dark:hover:border-cyan-500/50 rounded-3xl p-6 text-center space-y-4 shadow-xl shadow-slate-200/40 dark:shadow-slate-950/40 hover:shadow-2xl flex flex-col justify-between h-full">
                 <div className="space-y-3 flex flex-col items-center">
-                  <div className="w-24 h-24 rounded-2xl bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center shadow-inner">
+                  <div className="w-24 h-24 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden flex items-center justify-center shadow-inner">
                     {member.photo ? (
                       <img
                         src={getImageUrl(member.photo)}
@@ -47,19 +47,19 @@ export default function TeamSection() {
                         }}
                       />
                     ) : (
-                      <User className="w-10 h-10 text-slate-400" />
+                      <User className="w-10 h-10 text-slate-400 dark:text-slate-600" />
                     )}
                   </div>
 
                   <div>
-                    <h3 className="text-base font-bold text-slate-900">{member.name}</h3>
-                    <p className="text-xs font-bold text-cyan-700 uppercase tracking-wider mt-0.5">
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white">{member.name}</h3>
+                    <p className="text-xs font-bold text-cyan-700 dark:text-cyan-400 uppercase tracking-wider mt-0.5">
                       {member.position}
                     </p>
                   </div>
 
                   {member.shortBio && (
-                    <p className="text-xs text-slate-600 leading-relaxed max-w-xs">
+                    <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-xs">
                       {member.shortBio}
                     </p>
                   )}

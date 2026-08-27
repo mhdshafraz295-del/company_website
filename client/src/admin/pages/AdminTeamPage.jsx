@@ -223,7 +223,7 @@ export default function AdminTeamPage() {
                             className="w-10 h-10 rounded-full object-cover bg-slate-900 border border-slate-700 shrink-0"
                             onError={(e) => {
                               e.currentTarget.onerror = null;
-                              e.currentTarget.src = '/images/placeholder.png';
+                              e.currentTarget.style.display = 'none';
                             }}
                           />
                         ) : (

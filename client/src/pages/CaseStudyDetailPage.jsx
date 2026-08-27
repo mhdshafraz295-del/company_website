@@ -78,7 +78,7 @@ export default function CaseStudyDetailPage() {
       {/* Back Link */}
       <Link
         to="/"
-        className="inline-flex items-center space-x-2 text-xs font-bold text-slate-600 hover:text-cyan-600 transition"
+        className="inline-flex items-center space-x-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Back to Home</span>
@@ -86,18 +86,18 @@ export default function CaseStudyDetailPage() {
 
       {/* Header */}
       <div className="space-y-3">
-        <div className="flex items-center space-x-2 text-cyan-700 text-xs font-bold uppercase tracking-wider">
+        <div className="flex items-center space-x-2 text-cyan-700 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider">
           <BookOpen className="w-4 h-4" />
           <span>Engineering Case Study</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
           {caseStudy.title}
         </h1>
       </div>
 
       {/* Cover Image */}
       {caseStudy.coverImage && (
-        <div className="rounded-3xl border border-slate-200 overflow-hidden bg-slate-100 shadow-xl">
+        <div className="rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-slate-100 dark:bg-slate-900 shadow-xl">
           <img
             src={getImageUrl(caseStudy.coverImage)}
             alt={caseStudy.title}
@@ -111,29 +111,29 @@ export default function CaseStudyDetailPage() {
       )}
 
       {/* Problem Section */}
-      <div className="bg-red-50/70 border border-red-200 rounded-3xl p-6 sm:p-8 space-y-3 shadow-sm">
-        <h2 className="text-lg font-bold text-red-800">The Problem</h2>
-        <p className="text-sm sm:text-base text-slate-800 leading-relaxed whitespace-pre-line">
+      <div className="bg-red-50/70 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 rounded-3xl p-6 sm:p-8 space-y-3 shadow-sm">
+        <h2 className="text-lg font-bold text-red-800 dark:text-red-300">The Problem</h2>
+        <p className="text-sm sm:text-base text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-line">
           {caseStudy.problem}
         </p>
       </div>
 
       {/* Solution Section */}
-      <div className="bg-white/80 backdrop-blur-xl border border-slate-200/80 rounded-3xl p-6 sm:p-8 space-y-3 shadow-xl shadow-slate-200/40">
-        <h2 className="text-lg font-bold text-cyan-700">Our Technical Solution</h2>
-        <p className="text-sm sm:text-base text-slate-700 leading-relaxed whitespace-pre-line">
+      <div className="bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-8 space-y-3 shadow-xl shadow-slate-200/40 dark:shadow-slate-950/40">
+        <h2 className="text-lg font-bold text-cyan-700 dark:text-cyan-400">Our Technical Solution</h2>
+        <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
           {caseStudy.solution}
         </p>
       </div>
 
       {/* Results Section */}
       {caseStudy.result && (
-        <div className="bg-emerald-50 border border-emerald-200 rounded-3xl p-6 sm:p-8 space-y-3 shadow-sm">
-          <h2 className="text-lg font-bold text-emerald-800 flex items-center space-x-2">
+        <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 rounded-3xl p-6 sm:p-8 space-y-3 shadow-sm">
+          <h2 className="text-lg font-bold text-emerald-800 dark:text-emerald-300 flex items-center space-x-2">
             <CheckCircle2 className="w-5 h-5" />
             <span>Impact & Results</span>
           </h2>
-          <p className="text-sm sm:text-base text-emerald-900 leading-relaxed whitespace-pre-line">
+          <p className="text-sm sm:text-base text-emerald-900 dark:text-emerald-200 leading-relaxed whitespace-pre-line">
             {caseStudy.result}
           </p>
         </div>

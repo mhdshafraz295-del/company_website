@@ -132,7 +132,7 @@ export default function QuotePage() {
       {/* Back Link */}
       <Link
         to="/"
-        className="inline-flex items-center space-x-2 text-xs font-bold text-slate-600 hover:text-cyan-600 transition"
+        className="inline-flex items-center space-x-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Back to Home</span>
@@ -140,20 +140,20 @@ export default function QuotePage() {
 
       {/* Page Header */}
       <div className="text-center space-y-3 max-w-2xl mx-auto">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-cyan-200 bg-cyan-50/80 text-cyan-700 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
+        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-cyan-200 dark:border-cyan-800 bg-cyan-50/80 dark:bg-cyan-950/50 text-cyan-700 dark:text-cyan-300 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Project Estimation</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           Get a Project Quote
         </h1>
-        <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
           Select your requirements below to submit a detailed project estimation request for NexGen Solutions.
         </p>
       </div>
 
       {/* Form Container */}
-      <div className="bg-white/80 backdrop-blur-xl border border-slate-200/80 rounded-3xl p-6 sm:p-10 space-y-8 shadow-xl shadow-slate-200/40">
+      <div className="bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-10 space-y-8 shadow-xl shadow-slate-200/40 dark:shadow-slate-950/40">
         {submitted ? (
           /* Success State */
           <div className="text-center py-8 space-y-4">

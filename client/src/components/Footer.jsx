@@ -28,13 +28,13 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white/80 backdrop-blur-xl border-t border-slate-200/80 text-slate-600 text-xs sm:text-sm relative z-10 select-none">
+    <footer className="bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border-t border-slate-200/80 dark:border-slate-800 text-slate-600 dark:text-slate-300 text-xs sm:text-sm relative z-10 select-none">
       <Reveal3D yOffset={15} rotateXOffset={0} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Column 1: Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <Link to="/" className="flex items-center space-x-3 group">
-              <div className="bg-cyan-50/80 border border-cyan-100 p-2 rounded-xl">
+              <div className="bg-cyan-50/80 dark:bg-slate-900 border border-cyan-100 dark:border-slate-800 p-2 rounded-xl">
                 <img
                   src="/images/nexgen-logo.png"
                   alt="NexGen Solutions"
@@ -42,16 +42,16 @@ export default function Footer() {
                 />
               </div>
               <div>
-                <h3 className="font-extrabold text-base sm:text-lg text-slate-900 tracking-tight">
+                <h3 className="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white tracking-tight">
                   {settings?.companyName || 'NexGen Solutions'}
                 </h3>
-                <p className="text-[10px] text-cyan-600 uppercase tracking-wider font-semibold">
+                <p className="text-[10px] text-cyan-600 dark:text-cyan-400 uppercase tracking-wider font-semibold">
                   {settings?.tagline || 'Software & Web Agency'}
                 </p>
               </div>
             </Link>
 
-            <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-sm">
+            <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed max-w-sm">
               {settings?.companyDescription ||
                 'NexGen Solutions is a modern technology company crafting high-performance web applications, custom software systems, and mobile solutions.'}
             </p>
@@ -68,7 +68,7 @@ export default function Footer() {
                       target="_blank"
                       rel="noopener noreferrer"
                       title={link.platform}
-                      className="p-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:text-cyan-600 hover:border-cyan-300 hover:bg-cyan-50 transition-all"
+                      className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-300 dark:hover:border-cyan-500 hover:bg-cyan-50 dark:hover:bg-slate-800 transition-all"
                     >
                       <Icon className="w-4 h-4" />
                     </a>
@@ -80,37 +80,37 @@ export default function Footer() {
 
           {/* Column 2: Quick Links */}
           <div className="space-y-3">
-            <p className="text-xs font-bold text-slate-900 uppercase tracking-widest">
+            <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest">
               Quick Links
             </p>
-            <ul className="space-y-2 text-xs font-medium">
+            <ul className="space-y-2 text-xs font-medium text-slate-600 dark:text-slate-400">
               <li>
-                <a href="#about" className="hover:text-cyan-600 transition-colors">
+                <a href="#about" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#services" className="hover:text-cyan-600 transition-colors">
+                <a href="#services" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                   Services
                 </a>
               </li>
               <li>
-                <a href="#portfolio" className="hover:text-cyan-600 transition-colors">
+                <a href="#portfolio" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                   Portfolio
                 </a>
               </li>
               <li>
-                <a href="#process" className="hover:text-cyan-600 transition-colors">
+                <a href="#process" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                   Development Process
                 </a>
               </li>
               <li>
-                <a href="#team" className="hover:text-cyan-600 transition-colors">
+                <a href="#team" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                   Meet the Team
                 </a>
               </li>
               <li>
-                <Link to="/get-a-quote" className="text-cyan-600 hover:underline">
+                <Link to="/get-a-quote" className="text-cyan-600 dark:text-cyan-400 hover:underline">
                   Get a Quote
                 </Link>
               </li>
@@ -119,16 +119,16 @@ export default function Footer() {
 
           {/* Column 3: Active Services */}
           <div className="space-y-3">
-            <p className="text-xs font-bold text-slate-900 uppercase tracking-widest">
+            <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest">
               Services
             </p>
-            <ul className="space-y-2 text-xs font-medium">
+            <ul className="space-y-2 text-xs font-medium text-slate-600 dark:text-slate-400">
               {services && services.length > 0 ? (
                 services.slice(0, 6).map((service) => (
                   <li key={service.id}>
                     <a
                       href="#services"
-                      className="hover:text-cyan-600 transition-colors truncate block max-w-[180px]"
+                      className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors truncate block max-w-[180px]"
                     >
                       {service.title}
                     </a>
@@ -148,39 +148,39 @@ export default function Footer() {
 
           {/* Column 4: Contact Information */}
           <div className="space-y-3">
-            <p className="text-xs font-bold text-slate-900 uppercase tracking-widest">
+            <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest">
               Get in Touch
             </p>
-            <ul className="space-y-2.5 text-xs text-slate-600 font-medium">
+            <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400 font-medium">
               {settings?.email && (
                 <li className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4 text-cyan-600 shrink-0" />
-                  <a href={`mailto:${settings.email}`} className="hover:text-cyan-600 transition-colors truncate">
+                  <Mail className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
+                  <a href={`mailto:${settings.email}`} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors truncate">
                     {settings.email}
                   </a>
                 </li>
               )}
               {settings?.phone && (
                 <li className="flex items-center space-x-2">
-                  <Phone className="w-4 h-4 text-cyan-600 shrink-0" />
+                  <Phone className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
                   <span>{settings.phone}</span>
                 </li>
               )}
               {settings?.whatsapp && (
                 <li className="flex items-center space-x-2">
-                  <MessageSquare className="w-4 h-4 text-cyan-600 shrink-0" />
+                  <MessageSquare className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
                   <span>WhatsApp: {settings.whatsapp}</span>
                 </li>
               )}
               {settings?.address && (
                 <li className="flex items-start space-x-2">
-                  <MapPin className="w-4 h-4 text-cyan-600 shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5" />
                   <span>{settings.address}</span>
                 </li>
               )}
               {!settings?.email && (
                 <li className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4 text-cyan-600 shrink-0" />
+                  <Mail className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
                   <span>info@nexgen.local</span>
                 </li>
               )}
@@ -189,11 +189,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom Copyright */}
-        <div className="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-medium">
+        <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400 font-medium">
           <p>© {currentYear} NexGen Solutions. All Rights Reserved.</p>
           <div className="flex items-center space-x-6">
-            <span className="hover:text-slate-700 cursor-pointer">Privacy Policy</span>
-            <span className="hover:text-slate-700 cursor-pointer">Terms & Conditions</span>
+            <span className="hover:text-slate-700 dark:hover:text-slate-300 cursor-pointer">Privacy Policy</span>
+            <span className="hover:text-slate-700 dark:hover:text-slate-300 cursor-pointer">Terms & Conditions</span>
           </div>
         </div>
       </Reveal3D>

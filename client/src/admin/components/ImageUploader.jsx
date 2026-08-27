@@ -50,10 +50,17 @@ export default function ImageUploader({
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
-      if (res.data?.success && res.data.data?.url) {
-        onChange(res.data.data.url);
+      const rawUrl = res.data?.data?.url || res.data?.url;
+      const uploadedUrl = typeof rawUrl === 'string' ? rawUrl.trim() : '';
+
+      if (res.data?.success && uploadedUrl) {
+        onChange(uploadedUrl);
+        setLocalPreview(null); // Clear blob preview so currentDisplayUrl resolves through getImageUrl(value) immediately
         setUploadSuccess(true);
         setTimeout(() => setUploadSuccess(false), 3000);
+      } else {
+        setUploadError('Failed to retrieve valid image URL from upload response.');
+        setLocalPreview(null);
       }
     } catch (err) {
       setUploadError(err.response?.data?.message || 'Upload failed. Please try again.');
@@ -69,7 +76,7 @@ export default function ImageUploader({
     setUploadSuccess(false);
   };
 
-  const currentDisplayUrl = localPreview || getImageUrl(value);
+  const currentDisplayUrl = localPreview || (value ? getImageUrl(value) : '');
 
   return (
     <div className="space-y-2 select-none">
@@ -105,7 +112,7 @@ export default function ImageUploader({
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.currentTarget.onerror = null;
-                  e.currentTarget.src = '/images/placeholder.png';
+                  e.currentTarget.style.display = 'none';
                 }}
               />
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-2">

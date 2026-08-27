@@ -94,7 +94,7 @@ export default function ProjectDetailPage() {
       {/* Back Link */}
       <Link
         to="/"
-        className="inline-flex items-center space-x-2 text-xs font-bold text-slate-600 hover:text-cyan-600 transition"
+        className="inline-flex items-center space-x-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Back to Home Portfolio</span>
@@ -103,22 +103,22 @@ export default function ProjectDetailPage() {
       {/* Header Banner */}
       <div className="space-y-4">
         <div className="flex items-center space-x-3">
-          <span className="px-3 py-1 rounded-full bg-cyan-50 border border-cyan-200 text-cyan-700 text-xs font-semibold uppercase tracking-wider">
+          <span className="px-3 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300 text-xs font-semibold uppercase tracking-wider">
             {categoryLabelMap[project.category] || project.category}
           </span>
           {project.completionYear && (
-            <span className="flex items-center space-x-1 text-slate-500 text-xs font-mono">
+            <span className="flex items-center space-x-1 text-slate-500 dark:text-slate-400 text-xs font-mono">
               <Calendar className="w-3.5 h-3.5" />
               <span>{project.completionYear}</span>
             </span>
           )}
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
           {project.title}
         </h1>
 
-        <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-3xl">
+        <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
           {project.shortDescription}
         </p>
       </div>
@@ -139,30 +139,30 @@ export default function ProjectDetailPage() {
       )}
 
       {/* Project Meta Information Bar */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 bg-white/80 backdrop-blur-xl border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/40">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/40 dark:shadow-slate-950/40">
         {project.clientName && (
           <div className="space-y-1">
-            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider flex items-center space-x-1">
-              <Building className="w-3.5 h-3.5 text-cyan-600" />
+            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center space-x-1">
+              <Building className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
               <span>Client / Industry</span>
             </span>
-            <p className="text-sm font-bold text-slate-900">{project.clientName}</p>
+            <p className="text-sm font-bold text-slate-900 dark:text-white">{project.clientName}</p>
           </div>
         )}
 
         <div className="space-y-1">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider flex items-center space-x-1">
-            <Layers className="w-3.5 h-3.5 text-blue-600" />
+          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center space-x-1">
+            <Layers className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             <span>Category</span>
           </span>
-          <p className="text-sm font-bold text-slate-900">
+          <p className="text-sm font-bold text-slate-900 dark:text-white">
             {categoryLabelMap[project.category] || project.category}
           </p>
         </div>
 
         {/* External Links */}
         <div className="space-y-1">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
             Links
           </span>
           <div className="flex items-center space-x-3 pt-0.5">
@@ -171,7 +171,7 @@ export default function ProjectDetailPage() {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center space-x-1 text-xs font-bold text-cyan-600 hover:text-cyan-700"
+                className="inline-flex items-center space-x-1 text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300"
               >
                 <span>Live Site</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -182,7 +182,7 @@ export default function ProjectDetailPage() {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center space-x-1 text-xs font-bold text-slate-700 hover:text-slate-900"
+                className="inline-flex items-center space-x-1 text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
               >
                 <Github className="w-3.5 h-3.5" />
                 <span>Repository</span>
@@ -195,8 +195,8 @@ export default function ProjectDetailPage() {
       {/* Main Full Description */}
       {project.fullDescription && (
         <div className="space-y-4">
-          <h2 className="text-xl font-bold text-slate-900">Project Overview</h2>
-          <div className="text-sm sm:text-base text-slate-700 leading-relaxed whitespace-pre-line bg-white/80 backdrop-blur-xl border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/40">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white">Project Overview</h2>
+          <div className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/40 dark:shadow-slate-950/40">
             {project.fullDescription}
           </div>
         </div>
@@ -205,15 +205,15 @@ export default function ProjectDetailPage() {
       {/* Tech Stack */}
       {project.technologies && project.technologies.length > 0 && (
         <div className="space-y-3">
-          <h2 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
-            <Code2 className="w-5 h-5 text-cyan-600" />
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+            <Code2 className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
             <span>Technologies Used</span>
           </h2>
           <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech) => (
               <span
                 key={tech.id || tech.name}
-                className="px-3.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-800 shadow-sm"
+                className="px-3.5 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200 shadow-sm"
               >
                 {tech.name}
               </span>

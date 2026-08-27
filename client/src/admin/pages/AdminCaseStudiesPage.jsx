@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import api from '../../services/api';
+import { getImageUrl } from '../../utils/imageUrl';
 import { PublicDataContext } from '../../context/PublicDataContext';
 import ImageUploader from '../components/ImageUploader';
 import {
@@ -209,12 +210,12 @@ export default function AdminCaseStudiesPage() {
                       <div className="flex items-center space-x-3">
                         {cs.coverImage && (
                           <img
-                            src={cs.coverImage}
+                            src={getImageUrl(cs.coverImage)}
                             alt={cs.title}
                             className="w-10 h-10 rounded-lg object-cover bg-slate-900 border border-slate-700 shrink-0"
                             onError={(e) => {
                               e.currentTarget.onerror = null;
-                              e.currentTarget.src = '/images/placeholder.png';
+                              e.currentTarget.style.display = 'none';
                             }}
                           />
                         )}

@@ -81,7 +81,7 @@ export default function ContactPage() {
       {/* Back Link */}
       <Link
         to="/"
-        className="inline-flex items-center space-x-2 text-xs font-bold text-slate-600 hover:text-cyan-600 transition"
+        className="inline-flex items-center space-x-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Back to Home</span>
@@ -89,30 +89,30 @@ export default function ContactPage() {
 
       {/* Page Header */}
       <div className="text-center space-y-3 max-w-2xl mx-auto">
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           Contact NexGen Solutions
         </h1>
-        <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
           Have a general inquiry or technical question? Get in touch with our team.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Direct Contact Info */}
-        <div className="lg:col-span-5 bg-white/80 backdrop-blur-xl border border-slate-200/80 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl shadow-slate-200/40">
-          <h2 className="text-lg font-bold text-slate-900">Contact Information</h2>
+        <div className="lg:col-span-5 bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl shadow-slate-200/40 dark:shadow-slate-950/40">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white">Contact Information</h2>
 
-          <div className="space-y-4 text-xs sm:text-sm text-slate-600">
+          <div className="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
             {settings?.email && (
               <div className="flex items-start space-x-3">
-                <div className="p-2.5 bg-cyan-50 border border-cyan-100 rounded-2xl text-cyan-600">
+                <div className="p-2.5 bg-cyan-50 dark:bg-slate-900 border border-cyan-100 dark:border-slate-800 rounded-2xl text-cyan-600 dark:text-cyan-400">
                   <Mail className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
+                  <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                     Email Address
                   </span>
-                  <a href={`mailto:${settings.email}`} className="text-slate-900 hover:text-cyan-600 font-medium">
+                  <a href={`mailto:${settings.email}`} className="text-slate-900 dark:text-white hover:text-cyan-600 dark:hover:text-cyan-400 font-medium">
                     {settings.email}
                   </a>
                 </div>

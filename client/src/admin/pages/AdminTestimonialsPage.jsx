@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import api from '../../services/api';
+import { getImageUrl } from '../../utils/imageUrl';
 import { PublicDataContext } from '../../context/PublicDataContext';
+import ImageUploader from '../components/ImageUploader';
 import {
   MessageSquare,
   Plus,
@@ -224,9 +226,24 @@ export default function AdminTestimonialsPage() {
                 {filtered.map((t) => (
                   <tr key={t.id} className="hover:bg-slate-900/40 transition">
                     <td className="py-4 px-4">
-                      <div className="font-bold text-white text-sm">{t.clientName}</div>
-                      <div className="text-[11px] text-slate-500">
-                        {t.company ? `${t.company} ${t.position ? `(${t.position})` : ''}` : 'Private Client'}
+                      <div className="flex items-center space-x-3">
+                        {t.profileImage ? (
+                          <img
+                            src={getImageUrl(t.profileImage)}
+                            alt={t.clientName}
+                            className="w-9 h-9 rounded-full object-cover bg-slate-900 border border-slate-700 shrink-0"
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
+                        ) : null}
+                        <div>
+                          <div className="font-bold text-white text-sm">{t.clientName}</div>
+                          <div className="text-[11px] text-slate-500">
+                            {t.company ? `${t.company} ${t.position ? `(${t.position})` : ''}` : 'Private Client'}
+                          </div>
+                        </div>
                       </div>
                     </td>
                     <td className="py-4 px-4">
@@ -332,6 +349,13 @@ export default function AdminTestimonialsPage() {
                   />
                 </div>
               </div>
+
+              <ImageUploader
+                value={formData.profileImage}
+                onChange={(url) => setFormData({ ...formData, profileImage: url })}
+                folder="testimonials"
+                label="Client Avatar / Profile Photo"
+              />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">

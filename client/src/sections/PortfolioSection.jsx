@@ -40,14 +40,14 @@ export default function PortfolioSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Section Header */}
         <Reveal3D className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-cyan-200 bg-cyan-50/80 text-cyan-700 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-cyan-200 dark:border-cyan-800 bg-cyan-50/80 dark:bg-cyan-950/50 text-cyan-700 dark:text-cyan-300 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Featured Portfolio</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Projects We Have Crafted
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
             Explore software solutions, web platforms, and mobile applications engineered for client success.
           </p>
         </Reveal3D>
@@ -61,7 +61,7 @@ export default function PortfolioSection() {
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
                 selectedCategory === tab.value
                   ? 'bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600 text-white shadow-md shadow-blue-500/20'
-                  : 'bg-white/80 border border-slate-200/80 text-slate-700 hover:text-cyan-700 hover:bg-white shadow-sm'
+                  : 'bg-white/80 dark:bg-[#0D1322]/80 border border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-400 hover:bg-white dark:hover:bg-slate-800 shadow-sm'
               }`}
             >
               {tab.label}
@@ -80,9 +80,9 @@ export default function PortfolioSection() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {filteredProjects.map((project, idx) => (
               <Reveal3D key={project.id} delay={idx * 0.02}>
-                <TiltCard className="group bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 rounded-3xl overflow-hidden shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-cyan-500/10 flex flex-col justify-between h-full">
+                <TiltCard className="group bg-white/80 dark:bg-[#0D1322]/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 hover:border-cyan-300 dark:hover:border-cyan-500/50 rounded-3xl overflow-hidden shadow-xl shadow-slate-200/40 dark:shadow-slate-950/40 hover:shadow-2xl hover:shadow-cyan-500/10 flex flex-col justify-between h-full">
                   {/* Cover Image or Fallback Header */}
-                  <div className="relative h-48 bg-slate-100 overflow-hidden flex items-center justify-center border-b border-slate-200/80">
+                  <div className="relative h-48 bg-slate-100 dark:bg-slate-900 overflow-hidden flex items-center justify-center border-b border-slate-200/80 dark:border-slate-800">
                     {project.coverImage ? (
                       <img
                         src={getImageUrl(project.coverImage)}
@@ -95,8 +95,8 @@ export default function PortfolioSection() {
                       />
                     ) : (
                       <div className="flex flex-col items-center justify-center space-y-2 text-slate-400">
-                        <Code2 className="w-10 h-10 text-slate-400" />
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500">
+                        <Code2 className="w-10 h-10 text-slate-400 dark:text-slate-600" />
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                           {categoryLabelMap[project.category] || project.category}
                         </span>
                       </div>
@@ -112,21 +112,21 @@ export default function PortfolioSection() {
                   <div className="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between">
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-[11px]">
-                        <span className="text-cyan-700 font-semibold uppercase tracking-wider">
+                        <span className="text-cyan-700 dark:text-cyan-400 font-semibold uppercase tracking-wider">
                           {categoryLabelMap[project.category] || project.category}
                         </span>
                         {project.completionYear && (
-                          <span className="text-slate-400 font-mono">
+                          <span className="text-slate-400 dark:text-slate-500 font-mono">
                             {project.completionYear}
                           </span>
                         )}
                       </div>
 
-                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-cyan-600 transition-colors">
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                         {project.title}
                       </h3>
 
-                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
+                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">
                         {project.shortDescription}
                       </p>
                     </div>
@@ -137,7 +137,7 @@ export default function PortfolioSection() {
                         {project.technologies.slice(0, 4).map((tech) => (
                           <span
                             key={tech.id || tech.name}
-                            className="px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200 text-[10px] text-slate-700 font-semibold"
+                            className="px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-[10px] text-slate-700 dark:text-slate-300 font-semibold"
                           >
                             {tech.name}
                           </span>
@@ -149,7 +149,7 @@ export default function PortfolioSection() {
                     <div className="pt-2 mt-auto">
                       <Link
                         to={`/projects/${project.slug}`}
-                        className="inline-flex items-center space-x-1.5 text-xs font-bold text-cyan-600 hover:text-cyan-700 transition-colors"
+                        className="inline-flex items-center space-x-1.5 text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 transition-colors"
                       >
                         <span>View Project Details</span>
                         <ArrowRight className="w-3.5 h-3.5" />
