@@ -13,7 +13,7 @@ export default function TeamSection() {
   }
 
   return (
-    <section id="team" className="py-16 sm:py-20 lg:py-24 bg-white relative z-10 select-none">
+    <section id="team" className="py-16 sm:py-20 lg:py-24 bg-white dark:bg-[#060913] relative z-10 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Section Header */}
         <Reveal3D className="text-center space-y-3 max-w-3xl mx-auto">
@@ -66,13 +66,13 @@ export default function TeamSection() {
                 </div>
 
                 {/* Social Links */}
-                <div className="flex items-center justify-center space-x-3 pt-3 border-t border-slate-200/80 mt-auto">
+                <div className="flex items-center justify-center space-x-3 pt-3 border-t border-slate-200/80 dark:border-slate-800/80 mt-auto">
                   {member.linkedinUrl && (
                     <a
                       href={member.linkedinUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:text-cyan-700 hover:border-cyan-300 hover:bg-cyan-50 transition"
+                      className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-400 hover:border-cyan-300 dark:hover:border-cyan-500 hover:bg-cyan-50 dark:hover:bg-slate-800 transition"
                       title="LinkedIn Profile"
                     >
                       <Linkedin className="w-4 h-4" />
@@ -83,7 +83,7 @@ export default function TeamSection() {
                       href={member.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:text-cyan-700 hover:border-cyan-300 hover:bg-cyan-50 transition"
+                      className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-400 hover:border-cyan-300 dark:hover:border-cyan-500 hover:bg-cyan-50 dark:hover:bg-slate-800 transition"
                       title="GitHub Profile"
                     >
                       <Github className="w-4 h-4" />
@@ -92,7 +92,7 @@ export default function TeamSection() {
                   {member.email && (
                     <a
                       href={`mailto:${member.email}`}
-                      className="p-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:text-cyan-700 hover:border-cyan-300 hover:bg-cyan-50 transition"
+                      className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-400 hover:border-cyan-300 dark:hover:border-cyan-500 hover:bg-cyan-50 dark:hover:bg-slate-800 transition"
                       title="Email"
                     >
                       <Mail className="w-4 h-4" />
