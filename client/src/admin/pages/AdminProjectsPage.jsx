@@ -216,6 +216,7 @@ export default function AdminProjectsPage() {
           </p>
         </div>
         <button
+          type="button"
           onClick={handleOpenAdd}
           className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-lg flex items-center space-x-2 w-fit transition active:scale-95"
         >
@@ -338,6 +339,7 @@ export default function AdminProjectsPage() {
                     </td>
                     <td className="py-4 px-4 text-right space-x-2">
                       <button
+                        type="button"
                         onClick={() => handleOpenEdit(project)}
                         className="p-2 bg-slate-800 hover:bg-slate-700 text-emerald-400 rounded-xl transition"
                         title="Edit Project"
@@ -345,6 +347,7 @@ export default function AdminProjectsPage() {
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button
+                        type="button"
                         onClick={() => setDeleteConfirm(project)}
                         className="p-2 bg-slate-800 hover:bg-red-950/60 text-red-400 rounded-xl transition"
                         title="Delete Project"
@@ -371,6 +374,7 @@ export default function AdminProjectsPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in">
           <div className="bg-[#0b101d] border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-2xl w-full space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button
+              type="button"
               onClick={() => setModalOpen(false)}
               className="absolute top-5 right-5 p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white"
             >

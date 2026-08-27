@@ -48,6 +48,7 @@ export default function ImageUploader({
 
       const res = await api.post(`/media/upload?folder=${folder}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
+        timeout: 60000,
       });
 
       const rawUrl = res.data?.data?.url || res.data?.url;
@@ -63,10 +64,15 @@ export default function ImageUploader({
         setLocalPreview(null);
       }
     } catch (err) {
-      setUploadError(err.response?.data?.message || 'Upload failed. Please try again.');
+      console.error('Image upload error:', err);
+      setUploadError(err.response?.data?.message || err.message || 'Upload failed. Please try again.');
       setLocalPreview(null);
+    } finally {
+      setIsUploading(false);
+      if (e.target) {
+        e.target.value = '';
+      }
     }
-    setIsUploading(false);
   };
 
   const handleClear = () => {
@@ -152,7 +158,6 @@ export default function ImageUploader({
               <input
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
-                disabled={isUploading}
                 onChange={handleFileChange}
                 className="hidden"
               />
