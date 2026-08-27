@@ -217,11 +217,16 @@ export const createProject = async (req, res, next) => {
       return sendError(res, `Project slug '${slug}' already exists`, 409);
     }
 
+    const projectData = {
+      ...data,
+      slug,
+    };
+    if (data.coverImage !== undefined) {
+      projectData.coverImage = data.coverImage;
+    }
+
     const project = await prisma.project.create({
-      data: {
-        ...data,
-        slug,
-      },
+      data: projectData,
     });
 
     await syncProjectTechnologies(project.id, technologies);
@@ -265,12 +270,18 @@ export const updateProject = async (req, res, next) => {
       }
     }
 
+    const updateData = {
+      ...data,
+      slug,
+    };
+
+    if (data.coverImage !== undefined) {
+      updateData.coverImage = data.coverImage;
+    }
+
     await prisma.project.update({
       where: { id },
-      data: {
-        ...data,
-        slug,
-      },
+      data: updateData,
     });
 
     if (technologies !== undefined) {

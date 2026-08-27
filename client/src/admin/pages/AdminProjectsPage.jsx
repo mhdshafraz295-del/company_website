@@ -153,7 +153,7 @@ export default function AdminProjectsPage() {
         shortDescription: formData.shortDescription.trim(),
         fullDescription: formData.fullDescription.trim() || formData.shortDescription.trim(),
         clientOrIndustry: formData.clientOrIndustry.trim() || undefined,
-        coverImage: formData.coverImage.trim() || undefined,
+        coverImage: formData.coverImage ? formData.coverImage.trim() : null,
         completionYear: formData.completionYear ? Number(formData.completionYear) : undefined,
         status: formData.status,
         liveUrl: formData.liveUrl.trim() || undefined,
