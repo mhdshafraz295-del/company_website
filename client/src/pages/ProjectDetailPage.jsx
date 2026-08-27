@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../services/api';
+import { getImageUrl } from '../utils/imageUrl';
 import {
   ArrowLeft,
   ExternalLink,
@@ -126,9 +127,13 @@ export default function ProjectDetailPage() {
       {project.coverImage && (
         <div className="rounded-3xl border border-slate-200 overflow-hidden bg-slate-100 shadow-xl">
           <img
-            src={project.coverImage}
+            src={getImageUrl(project.coverImage)}
             alt={project.title}
             className="w-full max-h-[500px] object-cover"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.style.display = 'none';
+            }}
           />
         </div>
       )}
@@ -227,7 +232,15 @@ export default function ProjectDetailPage() {
                 key={img.id}
                 className="rounded-2xl border border-slate-200 overflow-hidden bg-slate-100 shadow-sm"
               >
-                <img src={img.imageUrl} alt={img.caption || project.title} className="w-full h-48 object-cover" />
+                <img
+                  src={getImageUrl(img.imageUrl)}
+                  alt={img.caption || project.title}
+                  className="w-full h-48 object-cover"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
                 {img.caption && (
                   <p className="p-3 text-xs text-slate-600 border-t border-slate-200">
                     {img.caption}

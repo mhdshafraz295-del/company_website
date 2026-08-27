@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../services/api';
+import { getImageUrl } from '../utils/imageUrl';
 import {
   ArrowLeft,
   BookOpen,
@@ -98,9 +99,13 @@ export default function CaseStudyDetailPage() {
       {caseStudy.coverImage && (
         <div className="rounded-3xl border border-slate-200 overflow-hidden bg-slate-100 shadow-xl">
           <img
-            src={caseStudy.coverImage}
+            src={getImageUrl(caseStudy.coverImage)}
             alt={caseStudy.title}
             className="w-full max-h-[450px] object-cover"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.style.display = 'none';
+            }}
           />
         </div>
       )}

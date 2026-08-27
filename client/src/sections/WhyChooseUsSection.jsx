@@ -69,7 +69,7 @@ export default function WhyChooseUsSection() {
           {benefits.map((b, idx) => {
             const Icon = b.icon;
             return (
-              <Reveal3D key={b.title} delay={idx * 0.03}>
+              <Reveal3D key={b.title} delay={idx * 0.02}>
                 <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 rounded-3xl p-6 space-y-3 flex flex-col justify-between h-full shadow-xl shadow-slate-200/40 hover:shadow-2xl">
                   <div className="space-y-3">
                     <div className="p-3 bg-gradient-to-br from-cyan-50 to-blue-50 border border-cyan-100 rounded-2xl text-cyan-600 w-fit shadow-sm">

@@ -27,7 +27,7 @@ export default function FounderSection() {
         </Reveal3D>
 
         {/* Founder Profile Card */}
-        <Reveal3D delay={0.1}>
+        <Reveal3D delay={0.02}>
           <div className="max-w-5xl mx-auto bg-white/80 backdrop-blur-xl border border-slate-200/80 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl shadow-slate-200/50 relative overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
               {/* Photo Column with TiltCard */}
@@ -40,6 +40,10 @@ export default function FounderSection() {
                         src={getImageUrl(founder.photo)}
                         alt={founder.name}
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.style.display = 'none';
+                        }}
                       />
                     ) : (
                       <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-tr from-cyan-50 to-blue-50 text-cyan-600">

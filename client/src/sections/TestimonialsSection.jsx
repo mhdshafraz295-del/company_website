@@ -1,5 +1,6 @@
 import React from 'react';
 import usePublicData from '../hooks/usePublicData';
+import { getImageUrl } from '../utils/imageUrl';
 import TiltCard from '../components/motion/TiltCard';
 import Reveal3D from '../components/motion/Reveal3D';
 import { Star, Quote, Sparkles, User } from 'lucide-react';
@@ -28,7 +29,7 @@ export default function TestimonialsSection() {
         {/* Testimonials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {testimonials.map((t, idx) => (
-            <Reveal3D key={t.id} delay={idx * 0.05}>
+            <Reveal3D key={t.id} delay={idx * 0.02}>
               <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 shadow-xl shadow-slate-200/40 rounded-3xl p-6 sm:p-7 space-y-4 flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative h-full">
                 <Quote className="w-8 h-8 text-cyan-200 absolute top-5 right-5" />
 
@@ -54,9 +55,13 @@ export default function TestimonialsSection() {
                   <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center shrink-0">
                     {t.profileImage ? (
                       <img
-                        src={t.profileImage}
+                        src={getImageUrl(t.profileImage)}
                         alt={t.clientName}
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.style.display = 'none';
+                        }}
                       />
                     ) : (
                       <User className="w-5 h-5 text-slate-400" />

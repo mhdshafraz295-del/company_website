@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Sparkles, Search, FileText, Map, Layout, Code2, Cpu, CheckCircle2, Rocket, Wrench, Layers } from 'lucide-react';
 import Process3DContainer from '../three/process/Process3DContainer';
 import Reveal3D from '../components/motion/Reveal3D';
@@ -17,10 +17,6 @@ const stages = [
 ];
 
 export default function ProcessSection() {
-  const sectionRef = useRef(null);
-  const scrollProgress = useRef(0);
-  const prevStageIdxRef = useRef(0);
-  const [activeStageIdx, setActiveStageIdx] = useState(0);
   const [isTouchOrSmallScreen, setIsTouchOrSmallScreen] = useState(false);
 
   useEffect(() => {
@@ -34,30 +30,8 @@ export default function ProcessSection() {
     return () => window.removeEventListener('resize', checkTouchOrSmall);
   }, []);
 
-  // Track scroll progress strictly relative to this section
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-
-  useEffect(() => {
-    const unsubscribe = scrollYProgress.on('change', (v) => {
-      scrollProgress.current = v;
-      // Calculate active stage index based on scroll position (0 to 8)
-      const currentIdx = Math.min(
-        stages.length - 1,
-        Math.max(0, Math.floor(v * stages.length))
-      );
-      if (currentIdx !== prevStageIdxRef.current) {
-        prevStageIdxRef.current = currentIdx;
-        setActiveStageIdx(currentIdx);
-      }
-    });
-    return () => unsubscribe();
-  }, [scrollYProgress]);
-
   return (
-    <section ref={sectionRef} id="process" className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#F8FAFC] relative z-10 select-none">
+    <section id="process" className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#F8FAFC] relative z-10 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-14">
         {/* Section Header */}
         <Reveal3D className="text-center space-y-3 max-w-3xl mx-auto">
@@ -75,18 +49,18 @@ export default function ProcessSection() {
 
         {/* 3D Exploded-View Architecture Showcase (Rendered for Fine Pointers / Non-Touch Desktops) */}
         {!isTouchOrSmallScreen ? (
-          <Reveal3D delay={0.1} className="space-y-4">
+          <Reveal3D delay={0.02} className="space-y-4">
             <div className="flex items-center justify-between px-2">
               <div className="flex items-center space-x-2 text-xs font-bold text-slate-800 uppercase tracking-wider">
                 <Layers className="w-4 h-4 text-cyan-600" />
-                <span>Scroll to Explore 3D Architecture Layers</span>
+                <span>3D Architecture Layers</span>
               </div>
               <span className="text-[11px] font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 px-2.5 py-0.5 rounded-full">
-                Active Stage: {stages[activeStageIdx]?.title || 'Discovery'}
+                9-Stage Engineering
               </span>
             </div>
 
-            <Process3DContainer scrollProgress={scrollProgress} />
+            <Process3DContainer />
 
             <div className="text-center space-y-1 pt-2">
               <h3 className="text-base sm:text-lg font-extrabold text-slate-900">
@@ -110,38 +84,19 @@ export default function ProcessSection() {
           </div>
         )}
 
-        {/* Semantic DOM 9-Stage Process Timeline Grid with Active Step Highlighting */}
+        {/* Semantic DOM 9-Stage Process Timeline Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pt-4">
           {stages.map((stage, idx) => {
             const Icon = stage.icon;
-            const isActive = activeStageIdx === idx;
             return (
-              <Reveal3D key={stage.step} delay={idx * 0.04}>
-                <div
-                  className={`bg-white/80 backdrop-blur-xl border rounded-3xl p-6 sm:p-7 relative space-y-3 transition-all duration-300 flex flex-col justify-between h-full ${
-                    isActive
-                      ? 'border-cyan-500 shadow-2xl shadow-cyan-500/20 scale-[1.02] bg-white'
-                      : 'border-slate-200/80 shadow-xl shadow-slate-200/40 hover:border-cyan-300'
-                  }`}
-                >
+              <Reveal3D key={stage.step} delay={idx * 0.02}>
+                <div className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 rounded-3xl p-6 sm:p-7 relative space-y-3 transition-all duration-200 flex flex-col justify-between h-full shadow-xl shadow-slate-200/40 hover:-translate-y-[3px]">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span
-                        className={`text-xs font-mono font-bold px-3 py-1 rounded-xl shadow-sm ${
-                          isActive
-                            ? 'bg-cyan-600 text-white'
-                            : 'bg-cyan-50 border border-cyan-200 text-cyan-700'
-                        }`}
-                      >
+                      <span className="text-xs font-mono font-bold px-3 py-1 rounded-xl shadow-sm bg-cyan-50 border border-cyan-200 text-cyan-700">
                         Stage {stage.step}
                       </span>
-                      <div
-                        className={`p-2 rounded-xl border ${
-                          isActive
-                            ? 'bg-cyan-50 border-cyan-200 text-cyan-600'
-                            : 'bg-slate-50 border-slate-100 text-slate-500'
-                        }`}
-                      >
+                      <div className="p-2 rounded-xl border bg-slate-50 border-slate-100 text-slate-500">
                         <Icon className="w-4 h-4" />
                       </div>
                     </div>

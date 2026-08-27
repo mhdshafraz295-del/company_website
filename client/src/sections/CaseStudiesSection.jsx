@@ -32,7 +32,7 @@ export default function CaseStudiesSection() {
         {/* Case Studies Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {caseStudies.map((study, idx) => (
-            <Reveal3D key={study.id} delay={idx * 0.05}>
+            <Reveal3D key={study.id} delay={idx * 0.02}>
               <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-blue-300 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl shadow-slate-200/40 hover:shadow-2xl flex flex-col justify-between h-full">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-2 text-cyan-700 text-xs font-bold uppercase tracking-wider">

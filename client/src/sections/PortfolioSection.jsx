@@ -79,7 +79,7 @@ export default function PortfolioSection() {
           /* Projects Grid */
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {filteredProjects.map((project, idx) => (
-              <Reveal3D key={project.id} delay={idx * 0.05}>
+              <Reveal3D key={project.id} delay={idx * 0.02}>
                 <TiltCard className="group bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 rounded-3xl overflow-hidden shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-cyan-500/10 flex flex-col justify-between h-full">
                   {/* Cover Image or Fallback Header */}
                   <div className="relative h-48 bg-slate-100 overflow-hidden flex items-center justify-center border-b border-slate-200/80">
@@ -88,6 +88,10 @@ export default function PortfolioSection() {
                         src={getImageUrl(project.coverImage)}
                         alt={project.title}
                         className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.style.display = 'none';
+                        }}
                       />
                     ) : (
                       <div className="flex flex-col items-center justify-center space-y-2 text-slate-400">

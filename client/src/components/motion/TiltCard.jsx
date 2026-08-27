@@ -6,59 +6,53 @@ export default function TiltCard({
   className = '',
   maxTiltX = 2,
   maxTiltY = 3,
-  liftOnHover = -4,
+  liftOnHover = -3,
+  enableTilt = false,
   disabled = false,
   ...props
 }) {
   const cardRef = useRef(null);
-  const [isTouchOrReduced, setIsTouchOrReduced] = useState(false);
+  const [isTouchOrReduced, setIsTouchOrReduced] = useState(true);
 
-  // Detect touch devices or prefers-reduced-motion
   useEffect(() => {
     const isTouch = window.matchMedia('(pointer: coarse)').matches;
     const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     setIsTouchOrReduced(isTouch || isReduced || disabled);
   }, [disabled]);
 
-  // MotionValues for mouse position normalized [-0.5, 0.5]
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  // Smooth springs for rotation
   const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [maxTiltX, -maxTiltX]), springConfig);
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-maxTiltY, maxTiltY]), springConfig);
   const translateY = useSpring(0, springConfig);
 
   const handleMouseMove = (e) => {
-    if (isTouchOrReduced || !cardRef.current) return;
+    if (isTouchOrReduced || !enableTilt || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-
-    // Calculate normalized pointer position relative to center of card
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    x.set(mouseX / width - 0.5);
-    y.set(mouseY / height - 0.5);
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
   };
 
   const handleMouseEnter = () => {
-    if (isTouchOrReduced) return;
+    if (isTouchOrReduced || !enableTilt) return;
     translateY.set(liftOnHover);
   };
 
   const handleMouseLeave = () => {
-    if (isTouchOrReduced) return;
+    if (isTouchOrReduced || !enableTilt) return;
     x.set(0);
     y.set(0);
     translateY.set(0);
   };
 
-  if (isTouchOrReduced) {
+  if (isTouchOrReduced || !enableTilt) {
     return (
-      <div className={`${className}`} {...props}>
+      <div
+        className={`transition-all duration-200 hover:-translate-y-[3px] ${className}`}
+        {...props}
+      >
         {children}
       </div>
     );

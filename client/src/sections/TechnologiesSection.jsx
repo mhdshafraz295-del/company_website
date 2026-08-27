@@ -59,7 +59,7 @@ export default function TechnologiesSection() {
           {techCategories.map((group, idx) => {
             const Icon = group.icon;
             return (
-              <Reveal3D key={group.category} delay={idx * 0.04}>
+              <Reveal3D key={group.category} delay={idx * 0.02}>
                 <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 shadow-xl shadow-slate-200/40 rounded-3xl p-6 sm:p-7 space-y-4 hover:shadow-2xl hover:border-cyan-300 flex flex-col justify-between h-full">
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3">

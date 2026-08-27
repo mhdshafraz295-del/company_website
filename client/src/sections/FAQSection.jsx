@@ -34,7 +34,7 @@ export default function FAQSection() {
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index;
               return (
-                <Reveal3D key={faq.id} delay={index * 0.04}>
+                <Reveal3D key={faq.id} delay={index * 0.02}>
                   <div
                     className={`bg-white/80 backdrop-blur-xl border border-slate-200/80 rounded-2xl overflow-hidden transition-all duration-300 ${
                       isOpen ? 'shadow-xl border-cyan-300' : 'shadow-md shadow-slate-200/30'

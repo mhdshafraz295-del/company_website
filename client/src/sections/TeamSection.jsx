@@ -32,7 +32,7 @@ export default function TeamSection() {
         {/* Team Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
           {team.map((member, idx) => (
-            <Reveal3D key={member.id} delay={idx * 0.04}>
+            <Reveal3D key={member.id} delay={idx * 0.02}>
               <TiltCard className="bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-300 rounded-3xl p-6 text-center space-y-4 shadow-xl shadow-slate-200/40 hover:shadow-2xl flex flex-col justify-between h-full">
                 <div className="space-y-3 flex flex-col items-center">
                   <div className="w-24 h-24 rounded-2xl bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center shadow-inner">

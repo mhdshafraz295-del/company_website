@@ -1,7 +1,7 @@
 /**
  * Resolves the backend origin from environment or default configuration
  * e.g. "http://localhost:5000/api" -> "http://localhost:5000"
- * "https://api.example.com/api" -> "https://api.example.com"
+ * "https://companywebsite-production-8ebe.up.railway.app/api" -> "https://companywebsite-production-8ebe.up.railway.app"
  */
 export const getBackendOrigin = () => {
   const envUrl =
@@ -31,7 +31,7 @@ export const getImageUrl = (url) => {
   const trimmed = url.trim();
   if (!trimmed) return '';
 
-  // 1. Absolute URLs (http://, https://, blob:, data:) - return unchanged
+  // 1. Absolute URLs (http://, https://, blob:, data:) - return unchanged (Cloudinary passes directly)
   if (
     trimmed.startsWith('http://') ||
     trimmed.startsWith('https://') ||
@@ -42,7 +42,7 @@ export const getImageUrl = (url) => {
   }
 
   // 2. Local uploads starting with /uploads/ or uploads/
-  if (trimmed.startsWith('/uploads/') || trimmed.startsWith('uploads/')) {
+  if (trimmed.startsWith('/uploads') || trimmed.startsWith('uploads')) {
     const origin = getBackendOrigin();
     const cleanPath = trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
     return `${origin}${cleanPath}`;

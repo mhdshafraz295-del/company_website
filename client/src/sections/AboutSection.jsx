@@ -35,7 +35,7 @@ export default function AboutSection() {
         {/* Mission & Vision Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Mission Card */}
-          <Reveal3D delay={0.1}>
+          <Reveal3D delay={0.02}>
             <TiltCard className="bg-white/80 backdrop-blur-xl border border-white/90 shadow-xl shadow-slate-200/50 rounded-3xl p-6 sm:p-8 space-y-4 hover:shadow-2xl hover:border-cyan-200 flex flex-col justify-between h-full">
               <div className="space-y-4">
                 <div className="p-3 bg-cyan-50 border border-cyan-100 rounded-2xl text-cyan-600 w-fit">
@@ -52,7 +52,7 @@ export default function AboutSection() {
           </Reveal3D>
 
           {/* Vision Card */}
-          <Reveal3D delay={0.2}>
+          <Reveal3D delay={0.04}>
             <TiltCard className="bg-white/80 backdrop-blur-xl border border-white/90 shadow-xl shadow-slate-200/50 rounded-3xl p-6 sm:p-8 space-y-4 hover:shadow-2xl hover:border-blue-200 flex flex-col justify-between h-full">
               <div className="space-y-4">
                 <div className="p-3 bg-blue-50 border border-blue-100 rounded-2xl text-blue-600 w-fit">
@@ -70,7 +70,7 @@ export default function AboutSection() {
         </div>
 
         {/* Core Values Section */}
-        <Reveal3D delay={0.3}>
+        <Reveal3D delay={0.04}>
           <div className="bg-white/80 backdrop-blur-xl border border-white/90 shadow-xl shadow-slate-200/50 rounded-3xl p-6 sm:p-8 space-y-6">
             <div className="flex items-center space-x-3">
               <div className="p-2.5 bg-teal-50 border border-teal-100 rounded-xl text-teal-600">

@@ -63,7 +63,7 @@ export default function ServicesSection() {
             {services.map((service, idx) => {
               const IconComponent = iconMap[service.icon] || Cpu;
               return (
-                <Reveal3D key={service.id} delay={idx * 0.05}>
+                <Reveal3D key={service.id} delay={idx * 0.02}>
                   <TiltCard className="group bg-white/80 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-400 shadow-xl shadow-slate-200/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between h-full hover:shadow-2xl hover:shadow-cyan-500/10">
                     <div className="space-y-4">
                       <div className="p-3.5 bg-gradient-to-br from-cyan-50 to-blue-50 border border-cyan-100 rounded-2xl text-cyan-600 w-fit shadow-sm">

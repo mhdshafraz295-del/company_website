@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import ProcessExplodedScene, { architectureLayers } from './ProcessExplodedScene';
 
-export default function Process3DContainer({ scrollProgress }) {
+export default function Process3DContainer() {
   const containerRef = useRef(null);
   const [isInitialized, setIsInitialized] = useState(false);
   const [isInView, setIsInView] = useState(true);
@@ -18,7 +18,7 @@ export default function Process3DContainer({ scrollProgress }) {
           setIsInitialized(true);
           setIsInView(true);
         } else {
-          // Keep Canvas mounted permanently; only reduce frame loop when far offscreen
+          // Keep Canvas mounted permanently; pause frame loop when offscreen
           setIsInView(false);
         }
       },
@@ -62,7 +62,7 @@ export default function Process3DContainer({ scrollProgress }) {
           className="w-full h-full relative z-10"
           style={{ background: 'transparent' }}
         >
-          <ProcessExplodedScene scrollProgress={scrollProgress} />
+          <ProcessExplodedScene />
         </Canvas>
       ) : (
         /* Pre-scroll Placeholder Skeleton */
