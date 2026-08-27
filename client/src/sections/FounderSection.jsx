@@ -13,7 +13,7 @@ export default function FounderSection() {
   }
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-[#F8FAFC] relative z-10 select-none">
+    <section className="py-16 sm:py-20 lg:py-24 bg-[#F8FAFC] dark:bg-[#060913] relative z-10 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Section Header */}
         <Reveal3D className="text-center space-y-3 max-w-3xl mx-auto">
