@@ -14,6 +14,9 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+// Trust Railway reverse proxy (1 hop) for rate-limiting X-Forwarded-For IP resolution
+app.set('trust proxy', 1);
+
 // Security middleware with cross-origin image loading enabled
 app.use(
   helmet({
