@@ -10,20 +10,25 @@ const baseUploadsDir = path.resolve(__dirname, '../../uploads');
 
 const ALLOWED_FOLDERS = ['projects', 'team', 'founder', 'case-studies', 'general'];
 
-// Configure Cloudinary if credentials present
-const isCloudinaryConfigured = Boolean(
-  config.cloudinary.cloudName &&
-  config.cloudinary.apiKey &&
-  config.cloudinary.apiSecret
-);
+function getCloudinaryConfig() {
+  const cloudName = process.env.CLOUDINARY_CLOUD_NAME || config.cloudinary?.cloudName;
+  const apiKey = process.env.CLOUDINARY_API_KEY || config.cloudinary?.apiKey;
+  const apiSecret = process.env.CLOUDINARY_API_SECRET || config.cloudinary?.apiSecret;
+  const folder = process.env.CLOUDINARY_FOLDER || config.cloudinary?.folder || 'nexgen-solutions';
 
-if (isCloudinaryConfigured) {
-  cloudinary.config({
-    cloud_name: config.cloudinary.cloudName,
-    api_key: config.cloudinary.apiKey,
-    api_secret: config.cloudinary.apiSecret,
-    secure: true,
-  });
+  const missing = [];
+  if (!cloudName) missing.push('CLOUDINARY_CLOUD_NAME');
+  if (!apiKey) missing.push('CLOUDINARY_API_KEY');
+  if (!apiSecret) missing.push('CLOUDINARY_API_SECRET');
+
+  return {
+    cloudName,
+    apiKey,
+    apiSecret,
+    folder,
+    isConfigured: missing.length === 0,
+    missing,
+  };
 }
 
 /**
@@ -66,11 +71,29 @@ export async function uploadSingleImage({ buffer, originalname, folder = 'genera
     ? folder.toLowerCase()
     : 'general';
 
-  const baseFolder = config.cloudinary.folder || 'nexgen-solutions';
-  const cloudinaryFolder = `${baseFolder}/${safeCategory}`;
+  const provider = (process.env.MEDIA_STORAGE_PROVIDER || config.mediaStorageProvider || 'cloudinary').toLowerCase();
+  const cConfig = getCloudinaryConfig();
 
   // 1. Cloudinary Storage Provider
-  if (isCloudinaryConfigured && config.mediaStorageProvider !== 'local') {
+  if (provider === 'cloudinary') {
+    if (!cConfig.isConfigured) {
+      const err = new Error(
+        `Cloudinary configuration error: MEDIA_STORAGE_PROVIDER is set to 'cloudinary', but required environment variable(s) missing: ${cConfig.missing.join(', ')}.`
+      );
+      err.status = 500;
+      throw err;
+    }
+
+    cloudinary.config({
+      cloud_name: cConfig.cloudName,
+      api_key: cConfig.apiKey,
+      api_secret: cConfig.apiSecret,
+      secure: true,
+    });
+
+    const baseFolder = cConfig.folder || 'nexgen-solutions';
+    const cloudinaryFolder = `${baseFolder}/${safeCategory}`;
+
     return new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
@@ -81,7 +104,9 @@ export async function uploadSingleImage({ buffer, originalname, folder = 'genera
         (error, result) => {
           if (error) {
             console.error('Cloudinary Upload Error:', error);
-            return reject(new Error('Failed to upload image to Cloudinary storage.'));
+            const uploadErr = new Error(`Failed to upload image to Cloudinary: ${error.message || 'Upload error'}`);
+            uploadErr.status = 500;
+            return reject(uploadErr);
           }
           resolve({
             url: result.secure_url,
@@ -97,7 +122,7 @@ export async function uploadSingleImage({ buffer, originalname, folder = 'genera
     });
   }
 
-  // 2. Local File System Fallback
+  // 2. Local File System Storage (only when MEDIA_STORAGE_PROVIDER=local)
   const targetDir = path.join(baseUploadsDir, safeCategory);
   if (!fs.existsSync(targetDir)) {
     fs.mkdirSync(targetDir, { recursive: true });
@@ -134,16 +159,21 @@ export async function deleteManagedImage(urlOrPublicId) {
     throw error;
   }
 
-  // Case A: Cloudinary Asset Deletion
-  const baseFolder = config.cloudinary.folder || 'nexgen-solutions';
+  const cConfig = getCloudinaryConfig();
   const derivedPublicId = extractPublicIdFromUrl(urlOrPublicId) || urlOrPublicId;
 
   if (
-    isCloudinaryConfigured &&
+    cConfig.isConfigured &&
     derivedPublicId &&
-    (derivedPublicId.startsWith(`${baseFolder}/`) || derivedPublicId.startsWith('nexgen-solutions/'))
+    (derivedPublicId.startsWith(`${cConfig.folder}/`) || derivedPublicId.includes('nexgen-solutions/'))
   ) {
     try {
+      cloudinary.config({
+        cloud_name: cConfig.cloudName,
+        api_key: cConfig.apiKey,
+        api_secret: cConfig.apiSecret,
+        secure: true,
+      });
       const res = await cloudinary.uploader.destroy(derivedPublicId);
       return { success: true, provider: 'cloudinary', result: res.result };
     } catch (err) {
