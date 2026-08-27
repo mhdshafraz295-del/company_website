@@ -279,6 +279,7 @@ export default function AdminProjectsPage() {
                       <div className="flex items-center space-x-3">
                         {project.coverImage ? (
                           <img
+                            key={project.coverImage}
                             src={getImageUrl(project.coverImage)}
                             alt={project.title}
                             className="w-10 h-10 rounded-lg object-cover bg-slate-900 shrink-0 border border-slate-700"
@@ -423,7 +424,7 @@ export default function AdminProjectsPage() {
               {/* Cover Image Upload Component */}
               <ImageUploader
                 value={formData.coverImage}
-                onChange={(url) => setFormData({ ...formData, coverImage: url })}
+                onChange={(url) => setFormData((prev) => ({ ...prev, coverImage: url }))}
                 folder="projects"
                 label="Project Cover Image"
               />

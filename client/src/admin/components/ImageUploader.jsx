@@ -107,6 +107,7 @@ export default function ImageUploader({
           {currentDisplayUrl ? (
             <div className="relative group w-full h-40 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden flex items-center justify-center">
               <img
+                key={currentDisplayUrl}
                 src={currentDisplayUrl}
                 alt="Image Preview"
                 className="w-full h-full object-cover"
