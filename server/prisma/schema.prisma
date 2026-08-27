@@ -1,0 +1,334 @@
+// Prisma schema for NexGen Solutions
+// MySQL datasource architecture for Phase 2
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ------------------------------------------------------
+// ENUMS
+// ------------------------------------------------------
+
+enum AdminRole {
+  SUPER_ADMIN
+  ADMIN
+}
+
+enum ProjectCategory {
+  WEBSITE
+  MOBILE_APP
+  SOFTWARE
+  ECOMMERCE
+  EDUCATION
+  BUSINESS_SYSTEM
+  OTHER
+}
+
+enum ProjectStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  MAINTENANCE
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  IN_DISCUSSION
+  CONVERTED
+  COMPLETED
+  REJECTED
+}
+
+// ------------------------------------------------------
+// MODELS (15 Total)
+// ------------------------------------------------------
+
+// 1. AdminUser
+model AdminUser {
+  id           Int       @id @default(autoincrement())
+  name         String
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  role         AdminRole @default(ADMIN)
+  isActive     Boolean   @default(true) @map("is_active")
+  lastLoginAt  DateTime? @map("last_login_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  @@map("admin_users")
+}
+
+// 2. Service
+model Service {
+  id               Int              @id @default(autoincrement())
+  title            String
+  slug             String           @unique
+  shortDescription String           @db.Text @map("short_description")
+  description      String           @db.LongText @map("description")
+  icon             String?
+  image            String?
+  displayOrder     Int              @default(0) @map("display_order")
+  isActive         Boolean          @default(true) @map("is_active")
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime         @updatedAt @map("updated_at")
+  contactEnquiries ContactEnquiry[]
+  quoteRequests    QuoteRequest[]
+
+  @@index([isActive, displayOrder])
+  @@map("services")
+}
+
+// 3. Project
+model Project {
+  id               Int                 @id @default(autoincrement())
+  title            String
+  slug             String              @unique
+  shortDescription String              @db.Text @map("short_description")
+  fullDescription  String              @db.LongText @map("full_description")
+  category         ProjectCategory
+  clientOrIndustry String?             @map("client_or_industry")
+  coverImage       String?             @map("cover_image")
+  completionYear   Int?                @map("completion_year")
+  status           ProjectStatus       @default(COMPLETED)
+  liveUrl          String?             @map("live_url")
+  githubUrl        String?             @map("github_url")
+  featured         Boolean             @default(false)
+  published        Boolean             @default(true)
+  displayOrder     Int                 @default(0) @map("display_order")
+  createdAt        DateTime            @default(now()) @map("created_at")
+  updatedAt        DateTime            @updatedAt @map("updated_at")
+  images           ProjectImage[]
+  caseStudy        CaseStudy?
+  technologies     ProjectTechnology[]
+
+  @@index([category])
+  @@index([published])
+  @@index([featured])
+  @@index([createdAt])
+  @@map("projects")
+}
+
+// 4. Technology
+model Technology {
+  id        Int                 @id @default(autoincrement())
+  name      String              @unique
+  icon      String?
+  category  String?
+  createdAt DateTime            @default(now()) @map("created_at")
+  updatedAt DateTime            @updatedAt @map("updated_at")
+  projects  ProjectTechnology[]
+
+  @@map("technologies")
+}
+
+// 5. ProjectTechnology (Join table for Project <-> Technology)
+model ProjectTechnology {
+  projectId    Int        @map("project_id")
+  technologyId Int        @map("technology_id")
+  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  technology   Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, technologyId])
+  @@map("project_technologies")
+}
+
+// 6. ProjectImage
+model ProjectImage {
+  id           Int      @id @default(autoincrement())
+  projectId    Int      @map("project_id")
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  imageUrl     String   @map("image_url")
+  altText      String?  @map("alt_text")
+  caption      String?
+  displayOrder Int      @default(0) @map("display_order")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("project_images")
+}
+
+// 7. CaseStudy
+model CaseStudy {
+  id                  Int      @id @default(autoincrement())
+  projectId           Int?     @unique @map("project_id")
+  project             Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  title               String
+  slug                String   @unique
+  problem             String   @db.LongText
+  solution            String   @db.LongText
+  technologiesSummary String?  @db.Text @map("technologies_summary")
+  result              String?  @db.LongText
+  coverImage          String?  @map("cover_image")
+  published           Boolean  @default(true)
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  @@map("case_studies")
+}
+
+// 8. TeamMember
+model TeamMember {
+  id           Int      @id @default(autoincrement())
+  name         String
+  position     String
+  shortBio     String?  @db.Text @map("short_bio")
+  fullBio      String?  @db.LongText @map("full_bio")
+  photo        String?
+  email        String?
+  linkedinUrl  String?  @map("linkedin_url")
+  githubUrl    String?  @map("github_url")
+  displayOrder Int      @default(0) @map("display_order")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([isActive, displayOrder])
+  @@map("team_members")
+}
+
+// 9. FounderProfile
+model FounderProfile {
+  id              Int      @id @default(autoincrement())
+  name            String
+  primaryRole     String   @map("primary_role")
+  expertise       String?  @db.Text
+  shortBio        String?  @db.Text @map("short_bio")
+  fullBiography   String?  @db.LongText @map("full_biography")
+  visionStatement String?  @db.Text @map("vision_statement")
+  photo           String?
+  email           String?
+  linkedinUrl     String?  @map("linkedin_url")
+  githubUrl       String?  @map("github_url")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("founder_profiles")
+}
+
+// 10. Testimonial
+model Testimonial {
+  id           Int      @id @default(autoincrement())
+  clientName   String   @map("client_name")
+  company      String?
+  position     String?
+  profileImage String?  @map("profile_image")
+  // Note: Rating stored as Int. 1–5 range validation must be enforced in the API validation layer in Phase 3.
+  rating       Int      @default(5)
+  review       String   @db.Text
+  approved     Boolean  @default(false)
+  isVisible    Boolean  @default(false) @map("is_visible")
+  displayOrder Int      @default(0) @map("display_order")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([approved, isVisible])
+  @@map("testimonials")
+}
+
+// 11. ContactEnquiry
+model ContactEnquiry {
+  id                 Int           @id @default(autoincrement())
+  fullName           String        @map("full_name")
+  email              String
+  phone              String?
+  whatsappNumber     String?       @map("whatsapp_number")
+  companyName        String?       @map("company_name")
+  serviceId          Int?          @map("service_id")
+  service            Service?      @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  projectDescription String        @db.Text @map("project_description")
+  budgetRange        String?       @map("budget_range")
+  projectTimeline    String?       @map("project_timeline")
+  attachmentUrl      String?       @map("attachment_url")
+  status             EnquiryStatus @default(NEW)
+  adminNotes         String?       @db.Text @map("admin_notes")
+  createdAt          DateTime      @default(now()) @map("created_at")
+  updatedAt          DateTime      @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([email])
+  @@map("contact_enquiries")
+}
+
+// 12. QuoteRequest
+model QuoteRequest {
+  id                 Int           @id @default(autoincrement())
+  serviceId          Int?          @map("service_id")
+  service            Service?      @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  serviceName        String?       @map("service_name")
+  projectTitle       String?       @map("project_title")
+  projectDescription String        @db.Text @map("project_description")
+  budgetRange        String?       @map("budget_range")
+  timeline           String?
+  fullName           String        @map("full_name")
+  email              String
+  phone              String?
+  whatsappNumber     String?       @map("whatsapp_number")
+  companyName        String?       @map("company_name")
+  status             EnquiryStatus @default(NEW)
+  adminNotes         String?       @db.Text @map("admin_notes")
+  createdAt          DateTime      @default(now()) @map("created_at")
+  updatedAt          DateTime      @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([email])
+  @@map("quote_requests")
+}
+
+// 13. FAQ
+model FAQ {
+  id           Int      @id @default(autoincrement())
+  question     String
+  answer       String   @db.Text
+  displayOrder Int      @default(0) @map("display_order")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("faqs")
+}
+
+// 14. WebsiteSetting
+model WebsiteSetting {
+  id                      Int      @id @default(autoincrement())
+  companyName             String   @default("NexGen Solutions") @map("company_name")
+  tagline                 String?  @map("tagline")
+  companyDescription      String?  @db.Text @map("company_description")
+  email                   String?
+  phone                   String?
+  whatsapp                String?
+  address                 String?
+  heroEyebrow             String?  @map("hero_eyebrow")
+  heroHeading             String?  @map("hero_heading")
+  heroDescription         String?  @db.Text @map("hero_description")
+  primaryCtaText          String?  @map("primary_cta_text")
+  secondaryCtaText        String?  @map("secondary_cta_text")
+  projectsCompleted       Int?     @map("projects_completed")
+  technologiesCount       Int?     @map("technologies_count")
+  clientSatisfactionText  String?  @map("client_satisfaction_text")
+  supportAvailabilityText String?  @map("support_availability_text")
+  createdAt               DateTime @default(now()) @map("created_at")
+  updatedAt               DateTime @updatedAt @map("updated_at")
+
+  @@map("website_settings")
+}
+
+// 15. SocialLink
+model SocialLink {
+  id           Int      @id @default(autoincrement())
+  platform     String
+  url          String
+  icon         String?
+  displayOrder Int      @default(0) @map("display_order")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("social_links")
+}

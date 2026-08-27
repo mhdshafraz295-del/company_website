@@ -1,0 +1,24 @@
+# Environment files
+.env
+.env.local
+.env.*
+!**/.env.example
+
+# Dependencies
+node_modules/
+
+# Uploads and User Media
+uploads/*
+server/uploads/*
+!uploads/.gitkeep
+!server/uploads/.gitkeep
+
+# Build outputs
+dist/
+build/
+
+# IDE / System
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
