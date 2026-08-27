@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from 'cloudinary';
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -26,6 +27,31 @@ function getCloudinaryConfig() {
     apiKey,
     apiSecret,
     folder,
+    isConfigured: missing.length === 0,
+    missing,
+  };
+}
+
+function getR2Config() {
+  const endpoint = process.env.R2_ENDPOINT;
+  const accessKeyId = process.env.R2_ACCESS_KEY_ID;
+  const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
+  const bucketName = process.env.R2_BUCKET_NAME;
+  const publicBaseUrl = process.env.R2_PUBLIC_BASE_URL;
+
+  const missing = [];
+  if (!endpoint) missing.push('R2_ENDPOINT');
+  if (!accessKeyId) missing.push('R2_ACCESS_KEY_ID');
+  if (!secretAccessKey) missing.push('R2_SECRET_ACCESS_KEY');
+  if (!bucketName) missing.push('R2_BUCKET_NAME');
+  if (!publicBaseUrl) missing.push('R2_PUBLIC_BASE_URL');
+
+  return {
+    endpoint,
+    accessKeyId,
+    secretAccessKey,
+    bucketName,
+    publicBaseUrl,
     isConfigured: missing.length === 0,
     missing,
   };
@@ -64,7 +90,7 @@ export function extractPublicIdFromUrl(url) {
 }
 
 /**
- * Upload single image buffer or file to Cloudinary or Local Storage
+ * Upload single image buffer or file to R2, Cloudinary or Local Storage
  */
 export async function uploadSingleImage({ buffer, originalname, folder = 'general', mimeType }) {
   const safeCategory = ALLOWED_FOLDERS.includes(folder.toLowerCase())
@@ -72,10 +98,64 @@ export async function uploadSingleImage({ buffer, originalname, folder = 'genera
     : 'general';
 
   const provider = (process.env.MEDIA_STORAGE_PROVIDER || config.mediaStorageProvider || 'cloudinary').toLowerCase();
-  const cConfig = getCloudinaryConfig();
 
-  // 1. Cloudinary Storage Provider
+  // 1. Cloudflare R2 Storage Provider
+  if (provider === 'r2') {
+    const rConfig = getR2Config();
+    if (!rConfig.isConfigured) {
+      const err = new Error(
+        `Cloudflare R2 configuration error: MEDIA_STORAGE_PROVIDER is set to 'r2', but required environment variable(s) missing: ${rConfig.missing.join(', ')}.`
+      );
+      err.status = 500;
+      throw err;
+    }
+
+    const s3Client = new S3Client({
+      region: 'auto',
+      endpoint: rConfig.endpoint,
+      credentials: {
+        accessKeyId: rConfig.accessKeyId,
+        secretAccessKey: rConfig.secretAccessKey,
+      },
+    });
+
+    const ext = path.extname(originalname || '.png').toLowerCase() || '.png';
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    const safeName = `${safeCategory}-${uniqueSuffix}${ext}`;
+    const objectKey = `${safeCategory}/${safeName}`;
+
+    try {
+      const command = new PutObjectCommand({
+        Bucket: rConfig.bucketName,
+        Key: objectKey,
+        Body: buffer,
+        ContentType: mimeType || 'image/jpeg',
+      });
+
+      await s3Client.send(command);
+
+      const baseUrl = rConfig.publicBaseUrl.replace(/\/+$/, '');
+      const publicUrl = `${baseUrl}/${objectKey}`;
+
+      return {
+        url: publicUrl,
+        publicId: objectKey,
+        filename: safeName,
+        size: buffer.length,
+        mimetype: mimeType || 'image/jpeg',
+        provider: 'r2',
+      };
+    } catch (error) {
+      console.error('Cloudflare R2 Upload Error:', error);
+      const uploadErr = new Error(`Failed to upload image to Cloudflare R2: ${error.message || 'Upload error'}`);
+      uploadErr.status = 500;
+      throw uploadErr;
+    }
+  }
+
+  // 2. Cloudinary Storage Provider
   if (provider === 'cloudinary') {
+    const cConfig = getCloudinaryConfig();
     if (!cConfig.isConfigured) {
       const err = new Error(
         `Cloudinary configuration error: MEDIA_STORAGE_PROVIDER is set to 'cloudinary', but required environment variable(s) missing: ${cConfig.missing.join(', ')}.`
@@ -122,7 +202,7 @@ export async function uploadSingleImage({ buffer, originalname, folder = 'genera
     });
   }
 
-  // 2. Local File System Storage (only when MEDIA_STORAGE_PROVIDER=local)
+  // 3. Local File System Storage (only when MEDIA_STORAGE_PROVIDER=local)
   const targetDir = path.join(baseUploadsDir, safeCategory);
   if (!fs.existsSync(targetDir)) {
     fs.mkdirSync(targetDir, { recursive: true });
@@ -145,7 +225,7 @@ export async function uploadSingleImage({ buffer, originalname, folder = 'genera
 }
 
 /**
- * Delete image reference safely (Cloudinary or Local Managed File)
+ * Delete image reference safely (R2, Cloudinary or Local Managed File)
  */
 export async function deleteManagedImage(urlOrPublicId) {
   if (!urlOrPublicId || typeof urlOrPublicId !== 'string') {
@@ -159,6 +239,54 @@ export async function deleteManagedImage(urlOrPublicId) {
     throw error;
   }
 
+  // Case A: Cloudflare R2 Asset Deletion
+  const rConfig = getR2Config();
+  if (rConfig.isConfigured) {
+    let r2Key = null;
+    const baseUrl = rConfig.publicBaseUrl ? rConfig.publicBaseUrl.replace(/\/+$/, '') : null;
+
+    if (baseUrl && urlOrPublicId.startsWith(baseUrl)) {
+      r2Key = urlOrPublicId.substring(baseUrl.length).replace(/^\/+/, '');
+    } else if (urlOrPublicId.includes('.r2.dev/')) {
+      const parts = urlOrPublicId.split('.r2.dev/');
+      if (parts[1]) r2Key = parts[1].replace(/^\/+/, '');
+    } else if (urlOrPublicId.includes('/')) {
+      const firstSegment = urlOrPublicId.split('/')[0];
+      if (ALLOWED_FOLDERS.includes(firstSegment?.toLowerCase())) {
+        r2Key = urlOrPublicId;
+      }
+    }
+
+    if (r2Key) {
+      const normalizedKey = path.normalize(r2Key).replace(/^(\.\.[\/\\])+/, '');
+      const keyCategory = normalizedKey.split('/')[0];
+      if (ALLOWED_FOLDERS.includes(keyCategory.toLowerCase())) {
+        try {
+          const s3Client = new S3Client({
+            region: 'auto',
+            endpoint: rConfig.endpoint,
+            credentials: {
+              accessKeyId: rConfig.accessKeyId,
+              secretAccessKey: rConfig.secretAccessKey,
+            },
+          });
+
+          await s3Client.send(
+            new DeleteObjectCommand({
+              Bucket: rConfig.bucketName,
+              Key: normalizedKey,
+            })
+          );
+          return { success: true, provider: 'r2', key: normalizedKey };
+        } catch (err) {
+          console.error('Cloudflare R2 deletion error:', err.message);
+          throw new Error('Failed to delete Cloudflare R2 asset.');
+        }
+      }
+    }
+  }
+
+  // Case B: Cloudinary Asset Deletion
   const cConfig = getCloudinaryConfig();
   const derivedPublicId = extractPublicIdFromUrl(urlOrPublicId) || urlOrPublicId;
 
@@ -182,7 +310,7 @@ export async function deleteManagedImage(urlOrPublicId) {
     }
   }
 
-  // Case B: Managed Local File Deletion
+  // Case C: Managed Local File Deletion
   if (urlOrPublicId.startsWith('/uploads/')) {
     const relativeFilePath = urlOrPublicId.replace('/uploads/', '');
     const absolutePath = path.resolve(baseUploadsDir, relativeFilePath);
@@ -200,6 +328,6 @@ export async function deleteManagedImage(urlOrPublicId) {
     return { success: true, provider: 'local', note: 'File not found on disk' };
   }
 
-  // Case C: External URL (Not managed by local uploads or current Cloudinary namespace)
+  // Case D: External URL
   return { success: true, provider: 'external', note: 'External image skipped safely' };
 }
