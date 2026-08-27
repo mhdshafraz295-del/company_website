@@ -36,7 +36,7 @@ export default function PortfolioSection() {
       : projects.filter((p) => p.category === selectedCategory);
 
   return (
-    <section id="portfolio" className="py-16 sm:py-20 lg:py-24 bg-[#F4F9FF] relative z-10 select-none">
+    <section id="portfolio" className="py-16 sm:py-20 lg:py-24 bg-[#F4F9FF] dark:bg-[#030712] relative z-10 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Section Header */}
         <Reveal3D className="text-center space-y-3 max-w-3xl mx-auto">
@@ -162,10 +162,10 @@ export default function PortfolioSection() {
           </div>
         ) : (
           /* Empty State */
-          <div className="text-center py-16 bg-white/80 border border-slate-200 rounded-3xl space-y-3 max-w-md mx-auto shadow-sm">
-            <FolderGit2 className="w-10 h-10 text-slate-400 mx-auto" />
-            <h4 className="text-sm font-bold text-slate-900">No Portfolio Projects Listed</h4>
-            <p className="text-xs text-slate-500">
+          <div className="text-center py-16 bg-white/80 dark:bg-[#0D1322]/80 border border-slate-200 dark:border-slate-800 rounded-3xl space-y-3 max-w-md mx-auto shadow-sm">
+            <FolderGit2 className="w-10 h-10 text-slate-400 dark:text-slate-600 mx-auto" />
+            <h4 className="text-sm font-bold text-slate-900 dark:text-white">No Portfolio Projects Listed</h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Published projects will appear here as they are added to the system.
             </p>
           </div>

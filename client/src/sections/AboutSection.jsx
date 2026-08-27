@@ -15,12 +15,12 @@ const coreValues = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-16 sm:py-20 lg:py-24 bg-[#F4F9FF] relative z-10 select-none">
+    <section id="about" className="py-16 sm:py-20 lg:py-24 bg-[#F4F9FF] dark:bg-[#030712] relative z-10 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
         
         {/* Section Header */}
         <Reveal3D className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-blue-200 bg-blue-50/80 text-blue-700 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50/80 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5" />
             <span>About NexGen Solutions</span>
           </div>
@@ -83,9 +83,9 @@ export default function AboutSection() {
               {coreValues.map((value) => (
                 <div
                   key={value}
-                  className="flex items-center space-x-2.5 p-3.5 rounded-xl bg-slate-50/80 border border-slate-200/80 text-xs sm:text-sm font-semibold text-slate-800 shadow-sm transition-transform hover:scale-105"
+                  className="flex items-center space-x-2.5 p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 shadow-sm transition-transform hover:scale-105"
                 >
-                  <CheckCircle2 className="w-4 h-4 text-cyan-600 shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
                   <span>{value}</span>
                 </div>
               ))}

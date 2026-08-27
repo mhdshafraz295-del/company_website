@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 
 export const ThemeContext = createContext({
   theme: 'light',
@@ -8,22 +8,29 @@ export const ThemeContext = createContext({
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
     try {
-      return localStorage.getItem('nexgen_theme') || 'light';
+      const savedTheme = localStorage.getItem('nexgen_theme');
+      return savedTheme === 'dark' ? 'dark' : 'light';
     } catch (e) {
       return 'light';
     }
   });
 
+  useEffect(() => {
+    try {
+      localStorage.setItem('nexgen_theme', theme);
+    } catch (e) {
+      console.error('Failed to save nexgen_theme to localStorage', e);
+    }
+
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
   const toggleTheme = () => {
-    setTheme((prev) => {
-      const nextTheme = prev === 'light' ? 'dark' : 'light';
-      try {
-        localStorage.setItem('nexgen_theme', nextTheme);
-      } catch (e) {
-        console.error('Failed to save nexgen_theme to localStorage', e);
-      }
-      return nextTheme;
-    });
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   };
 
   return (

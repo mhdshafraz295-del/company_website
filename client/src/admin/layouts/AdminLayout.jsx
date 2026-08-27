@@ -6,8 +6,10 @@ import AdminHeader from '../components/AdminHeader';
 export default function AdminLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Security & SEO: Add noindex, nofollow for Admin portal pages
+  // Security & SEO: Add noindex, nofollow for Admin portal pages & keep Admin isolated from public dark mode
   useEffect(() => {
+    document.documentElement.classList.remove('dark');
+
     let metaTag = document.querySelector('meta[name="robots"]');
     let created = false;
     if (!metaTag) {
