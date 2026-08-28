@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import usePublicData from '../hooks/usePublicData';
 import Reveal3D from './motion/Reveal3D';
+import { useTheme } from '../context/ThemeContext';
 import {
   Mail,
   Phone,
@@ -24,6 +25,7 @@ const socialIconMap = {
 };
 
 export default function Footer() {
+  const { theme } = useTheme();
   const { settings, socialLinks, services } = usePublicData();
   const currentYear = new Date().getFullYear();
 
@@ -36,7 +38,7 @@ export default function Footer() {
             <Link to="/" className="flex items-center space-x-3 group">
               <div className="bg-cyan-50/80 dark:bg-slate-900 border border-cyan-100 dark:border-slate-800 p-2 rounded-xl">
                 <img
-                  src="/images/nexgen-logo.png"
+                  src={theme === 'dark' ? '/images/nexgen-logo-dark.jpg' : '/images/nexgen-logo-light.png'}
                   alt="NexGen Solutions"
                   className="h-8 w-auto object-contain"
                 />

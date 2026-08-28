@@ -56,7 +56,7 @@ export default function Navbar() {
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 border border-cyan-100 dark:border-slate-700 p-2 rounded-xl shadow-sm group-hover:border-cyan-300 dark:group-hover:border-cyan-500 transition-colors">
               <img
-                src="/images/nexgen-logo.png"
+                src={theme === 'dark' ? '/images/nexgen-logo-dark.jpg' : '/images/nexgen-logo-light.png'}
                 alt="NexGen Solutions Logo"
                 className="h-8 w-auto object-contain"
               />
