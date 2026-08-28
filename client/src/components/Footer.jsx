@@ -36,13 +36,11 @@ export default function Footer() {
           {/* Column 1: Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <Link to="/" className="flex items-center space-x-3 group">
-              <div className="bg-cyan-50/80 dark:bg-slate-900 border border-cyan-100 dark:border-slate-800 p-2 rounded-xl">
-                <img
-                  src={theme === 'dark' ? '/images/nexgen-logo-dark.jpg' : '/images/nexgen-logo-light.png'}
-                  alt="NexGen Solutions"
-                  className="h-8 w-auto object-contain"
-                />
-              </div>
+              <img
+                src={theme === 'dark' ? '/images/nexgen-logo-dark-new.jpg' : '/images/nexgen-logo-light.png'}
+                alt="NexGen Solutions"
+                className="h-8 w-auto object-contain"
+              />
               <div>
                 <h3 className="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white tracking-tight">
                   {settings?.companyName || 'NexGen Solutions'}
