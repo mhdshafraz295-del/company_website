@@ -55,7 +55,7 @@ export default function Navbar() {
           {/* Brand Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
             <img
-              src={theme === 'dark' ? '/images/nexgen-logo-dark-new.jpg' : '/images/nexgen-logo-light.png'}
+              src={theme === 'dark' ? '/images/nexgen-logo-dark-transparent.png' : '/images/nexgen-logo-light.png'}
               alt="NexGen Solutions Logo"
               className="h-8 w-auto object-contain"
             />

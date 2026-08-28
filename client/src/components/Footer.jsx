@@ -37,7 +37,7 @@ export default function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <Link to="/" className="flex items-center space-x-3 group">
               <img
-                src={theme === 'dark' ? '/images/nexgen-logo-dark-new.jpg' : '/images/nexgen-logo-light.png'}
+                src={theme === 'dark' ? '/images/nexgen-logo-dark-transparent.png' : '/images/nexgen-logo-light.png'}
                 alt="NexGen Solutions"
                 className="h-8 w-auto object-contain"
               />
