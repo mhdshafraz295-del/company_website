@@ -506,16 +506,12 @@ export default function AdminCollaboratorsPage() {
               </div>
 
               {/* Logo Uploader */}
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  Partner Logo
-                </label>
-                <ImageUploader
-                  currentImage={formData.logo}
-                  onImageChange={(url) => setFormData({ ...formData, logo: url })}
-                  folder="collaborators"
-                />
-              </div>
+              <ImageUploader
+                value={formData.logo}
+                onChange={(url) => setFormData((prev) => ({ ...prev, logo: url }))}
+                folder="collaborators"
+                label="Partner Logo"
+              />
 
               {/* Short Description */}
               <div>
