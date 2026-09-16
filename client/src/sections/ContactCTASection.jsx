@@ -16,7 +16,7 @@ export default function ContactCTASection() {
           <div className="absolute bottom-0 left-0 -mb-12 -ml-12 w-96 h-96 bg-blue-400/20 dark:bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl sm:5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
               Have a Project in Mind?
             </h2>
             <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-lg leading-relaxed font-normal">
@@ -44,22 +44,22 @@ export default function ContactCTASection() {
             </div>
 
             {/* Quick Contact Info Bar */}
-            <div className="pt-8 border-t border-slate-200/80 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-600 font-medium">
+            <div className="pt-8 border-t border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400 font-medium">
               {settings?.email && (
                 <div className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4 text-cyan-600" />
+                  <Mail className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                   <span>{settings.email}</span>
                 </div>
               )}
               {settings?.phone && (
                 <div className="flex items-center space-x-2">
-                  <Phone className="w-4 h-4 text-cyan-600" />
+                  <Phone className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                   <span>{settings.phone}</span>
                 </div>
               )}
               {settings?.whatsapp && (
                 <div className="flex items-center space-x-2">
-                  <MessageSquare className="w-4 h-4 text-cyan-600" />
+                  <MessageSquare className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                   <span>WhatsApp: {settings.whatsapp}</span>
                 </div>
               )}

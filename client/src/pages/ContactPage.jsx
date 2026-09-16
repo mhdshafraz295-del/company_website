@@ -77,7 +77,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="py-12 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 animate-in fade-in duration-200 select-none">
+    <div className="py-12 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 animate-in fade-in duration-200">
       {/* Back Link */}
       <Link
         to="/"

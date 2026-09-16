@@ -395,207 +395,263 @@ export default function AdminProjectsPage() {
 
       {/* Add / Edit Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-[#0b101d] border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-2xl w-full space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button
-              type="button"
-              onClick={() => setModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="space-y-1">
-              <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-widest">
-                {editingProject ? 'Edit Project Record' : 'Create Portfolio Entry'}
-              </span>
-              <h2 className="text-xl font-extrabold text-white">
-                {editingProject ? editingProject.title : 'Add Portfolio Project'}
-              </h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="bg-[#0b101d] border border-slate-800 rounded-3xl w-full max-w-2xl max-h-[92dvh] flex flex-col shadow-2xl overflow-hidden">
+            {/* Modal Sticky Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-[#0e1626]/90 backdrop-blur shrink-0">
+              <div className="flex items-center space-x-3">
+                <div className="w-9 h-9 rounded-xl bg-emerald-950/70 border border-emerald-800/60 text-emerald-400 flex items-center justify-center">
+                  <FolderGit2 className="w-5 h-5" />
+                </div>
+                <div>
+                  <h2 className="text-base font-bold text-white">
+                    {editingProject ? 'Edit Project Record' : 'Add Portfolio Project'}
+                  </h2>
+                  <p className="text-[11px] text-slate-400">
+                    Configure project media, categorization, technologies, and link to partners.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setModalOpen(false)}
+                className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800 transition"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
 
-            {errorMessage && (
-              <div className="p-3 bg-red-950/60 border border-red-800 text-red-300 text-xs rounded-xl">
-                {errorMessage}
-              </div>
-            )}
+            {/* Modal Scrollable Body */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+              {errorMessage && (
+                <div className="p-3.5 bg-rose-950/60 border border-rose-800/80 rounded-2xl text-rose-300 text-xs flex items-center space-x-2.5">
+                  <XCircle className="w-4 h-4 shrink-0" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <form id="project-form" onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-slate-300">Project Title *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Fintech Dashboard App"
+                      value={formData.title}
+                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                      className="w-full bg-[#070b14] border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-slate-300">Category *</label>
+                    <select
+                      value={formData.category}
+                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                      className="w-full bg-[#070b14] border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    >
+                      {categories.map((cat) => (
+                        <option key={cat.value} value={cat.value}>
+                          {cat.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Cover Image Upload Component */}
+                <div className="bg-[#0e1626]/50 rounded-2xl p-4 border border-slate-800/80">
+                  <ImageUploader
+                    value={formData.coverImage}
+                    onChange={(url) => setFormData((prev) => ({ ...prev, coverImage: url }))}
+                    folder="projects"
+                    label="Project Cover Image"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-slate-300">Custom Slug (Optional)</label>
+                    <input
+                      type="text"
+                      placeholder="fintech-dashboard-app"
+                      value={formData.slug}
+                      onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                      className="w-full bg-[#070b14] border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-slate-300">Client / Industry Label</label>
+                    <input
+                      type="text"
+                      placeholder="Global Banking Group"
+                      value={formData.clientOrIndustry}
+                      onChange={(e) => setFormData({ ...formData, clientOrIndustry: e.target.value })}
+                      className="w-full bg-[#070b14] border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+                </div>
+
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-300">Project Title *</label>
+                  <label className="text-xs font-semibold text-slate-300">Short Description *</label>
+                  <textarea
+                    rows={2}
+                    required
+                    placeholder="Brief 1-2 sentence overview of the project and impact..."
+                    value={formData.shortDescription}
+                    onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
+                    className="w-full bg-[#070b14] border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-300">Detailed Description (Optional)</label>
+                  <textarea
+                    rows={4}
+                    placeholder="Full case details, system architecture, core functionality..."
+                    value={formData.fullDescription}
+                    onChange={(e) => setFormData({ ...formData, fullDescription: e.target.value })}
+                    className="w-full bg-[#070b14] border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-300">
+                    Technologies (Comma-separated) *
+                  </label>
                   <input
                     type="text"
                     required
-                    placeholder="Fintech Dashboard App"
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    placeholder="React, Node.js, TailwindCSS, MySQL"
+                    value={formData.technologiesInput}
+                    onChange={(e) => setFormData({ ...formData, technologiesInput: e.target.value })}
+                    className="w-full bg-[#070b14] border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
                   />
                 </div>
+
+                {/* Optional Collaborator Link Dropdown */}
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-300">Category *</label>
+                  <label className="text-xs font-semibold text-slate-300 flex items-center space-x-1.5">
+                    <Handshake className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Associated Collaborator / Partner (Optional)</span>
+                  </label>
                   <select
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    value={formData.collaboratorId}
+                    onChange={(e) => setFormData({ ...formData, collaboratorId: e.target.value })}
+                    className="w-full bg-[#070b14] border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-cyan-500"
                   >
-                    {categories.map((cat) => (
-                      <option key={cat.value} value={cat.value}>
-                        {cat.label}
+                    <option value="">None (Independent In-House Project)</option>
+                    {collaboratorOptions.map((collab) => (
+                      <option key={collab.id} value={collab.id}>
+                        {collab.name} {collab.partnerType ? `(${collab.partnerType})` : ''}
                       </option>
                     ))}
                   </select>
+                  <p className="text-[10px] text-slate-500">
+                    Linking this project to a partner will display it on the public Collaborators section.
+                  </p>
                 </div>
-              </div>
 
-              {/* Cover Image Upload Component */}
-              <ImageUploader
-                value={formData.coverImage}
-                onChange={(url) => setFormData((prev) => ({ ...prev, coverImage: url }))}
-                folder="projects"
-                label="Project Cover Image"
-              />
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-300">Custom Slug (Optional)</label>
-                  <input
-                    type="text"
-                    placeholder="fintech-dashboard-app"
-                    value={formData.slug}
-                    onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-slate-300">Completion Year</label>
+                    <input
+                      type="number"
+                      placeholder="2025"
+                      value={formData.completionYear}
+                      onChange={(e) => setFormData({ ...formData, completionYear: e.target.value })}
+                      className="w-full bg-[#070b14] border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-slate-300">Status</label>
+                    <select
+                      value={formData.status}
+                      onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                      className="w-full bg-[#070b14] border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    >
+                      <option value="COMPLETED">Completed</option>
+                      <option value="IN_PROGRESS">In Progress</option>
+                      <option value="MAINTENANCE">Maintenance</option>
+                    </select>
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-slate-300">Display Order</label>
+                    <input
+                      type="number"
+                      value={formData.displayOrder}
+                      onChange={(e) => setFormData({ ...formData, displayOrder: e.target.value })}
+                      className="w-full bg-[#070b14] border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
                 </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-300">Client / Industry Label</label>
-                  <input
-                    type="text"
-                    placeholder="Global Banking Group"
-                    value={formData.clientOrIndustry}
-                    onChange={(e) => setFormData({ ...formData, clientOrIndustry: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
-                  />
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-slate-300">Live Website URL</label>
+                    <input
+                      type="url"
+                      placeholder="https://clientproject.com"
+                      value={formData.liveUrl}
+                      onChange={(e) => setFormData({ ...formData, liveUrl: e.target.value })}
+                      className="w-full bg-[#070b14] border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-slate-300">GitHub URL</label>
+                    <input
+                      type="url"
+                      placeholder="https://github.com/..."
+                      value={formData.githubUrl}
+                      onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
+                      className="w-full bg-[#070b14] border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              {/* Optional Collaborator / Partner Selection */}
-              <div className="space-y-1">
-                <label className="text-xs font-semibold text-slate-300">
-                  Collaborator / Partner <span className="text-slate-500 font-normal">(Optional)</span>
-                </label>
-                <select
-                  value={formData.collaboratorId}
-                  onChange={(e) => setFormData({ ...formData, collaboratorId: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
-                >
-                  <option value="">None / Independent Project</option>
-                  {collaboratorOptions.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.name} {c.partnerType ? `(${c.partnerType})` : ''}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                <div className="flex flex-wrap gap-6 pt-2">
+                  <label className="flex items-center space-x-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData.published}
+                      onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
+                      className="rounded border-slate-700 text-emerald-600 focus:ring-emerald-500"
+                    />
+                    <span className="text-xs font-semibold text-slate-200">Published / Publicly Visible</span>
+                  </label>
 
-              <div className="space-y-1">
-                <label className="text-xs font-semibold text-slate-300">Short Description *</label>
-                <textarea
-                  rows={2}
-                  required
-                  placeholder="Concise overview shown on project cards..."
-                  value={formData.shortDescription}
-                  onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-semibold text-slate-300">Full Project Description</label>
-                <textarea
-                  rows={4}
-                  placeholder="Complete project breakdown, architecture, and results..."
-                  value={formData.fullDescription}
-                  onChange={(e) => setFormData({ ...formData, fullDescription: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-semibold text-slate-300">Technologies (Comma Separated)</label>
-                <input
-                  type="text"
-                  placeholder="React, Node.js, Prisma, MySQL, TailwindCSS"
-                  value={formData.technologiesInput}
-                  onChange={(e) => setFormData({ ...formData, technologiesInput: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-300">Live URL (Optional)</label>
-                  <input
-                    type="url"
-                    placeholder="https://example.com"
-                    value={formData.liveUrl}
-                    onChange={(e) => setFormData({ ...formData, liveUrl: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
-                  />
+                  <label className="flex items-center space-x-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData.featured}
+                      onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
+                      className="rounded border-slate-700 text-cyan-600 focus:ring-cyan-500"
+                    />
+                    <span className="text-xs font-semibold text-slate-200">Featured Home Badge</span>
+                  </label>
                 </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-300">GitHub URL (Optional)</label>
-                  <input
-                    type="url"
-                    placeholder="https://github.com/..."
-                    value={formData.githubUrl}
-                    onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
-              </div>
+              </form>
+            </div>
 
-              <div className="flex flex-wrap gap-6 pt-2">
-                <label className="flex items-center space-x-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={formData.published}
-                    onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
-                    className="rounded border-slate-700 text-emerald-600 focus:ring-emerald-500"
-                  />
-                  <span className="text-xs font-semibold text-slate-200">Published / Publicly Visible</span>
-                </label>
-
-                <label className="flex items-center space-x-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={formData.featured}
-                    onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                    className="rounded border-slate-700 text-cyan-600 focus:ring-cyan-500"
-                  />
-                  <span className="text-xs font-semibold text-slate-200">Featured Home Badge</span>
-                </label>
-              </div>
-
-              <div className="flex justify-end space-x-3 pt-4 border-t border-slate-800">
-                <button
-                  type="button"
-                  onClick={() => setModalOpen(false)}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 rounded-xl transition"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="px-5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-xs font-bold text-white rounded-xl shadow-lg transition flex items-center space-x-2"
-                >
-                  {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
-                  <span>Save Project</span>
-                </button>
-              </div>
-            </form>
+            {/* Modal Sticky Footer */}
+            <div className="flex items-center justify-end space-x-3 px-6 py-4 border-t border-slate-800 bg-[#0e1626]/90 backdrop-blur shrink-0">
+              <button
+                type="button"
+                onClick={() => setModalOpen(false)}
+                className="px-5 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                form="project-form"
+                disabled={isSubmitting}
+                className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold py-2.5 px-6 rounded-xl shadow-lg transition flex items-center space-x-2 disabled:opacity-50"
+              >
+                {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+                <span>Save Project</span>
+              </button>
+            </div>
           </div>
         </div>
       )}

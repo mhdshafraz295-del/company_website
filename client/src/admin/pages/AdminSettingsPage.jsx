@@ -98,7 +98,7 @@ export default function AdminSettingsPage() {
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-200 select-none">
+    <div className="space-y-6 animate-in fade-in duration-200">
       {/* Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-[#0d1322] via-[#0f172a] to-[#0b101d] border border-slate-800/80 rounded-2xl p-6 shadow-xl">
         <div className="space-y-1">
