@@ -59,7 +59,7 @@ export default function TeamSection() {
                   </div>
 
                   {member.shortBio && (
-                    <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-xs">
+                    <p className="text-xs text-slate-600 dark:text-slate-300 text-left sm:text-justify leading-relaxed break-words w-full">
                       {member.shortBio}
                     </p>
                   )}
