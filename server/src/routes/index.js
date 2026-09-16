@@ -12,6 +12,7 @@ import faqRoutes from './faqRoutes.js';
 import settingsRoutes from './settingsRoutes.js';
 import caseStudyRoutes from './caseStudyRoutes.js';
 import mediaRoutes from './mediaRoutes.js';
+import collaboratorRoutes from './collaboratorRoutes.js';
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ router.use('/health', healthRoutes);
 router.use('/auth', authRoutes);
 router.use('/services', serviceRoutes);
 router.use('/projects', projectRoutes);
+router.use('/collaborators', collaboratorRoutes);
 router.use('/team', teamRoutes);
 router.use('/founder', founderRoutes);
 router.use('/testimonials', testimonialRoutes);

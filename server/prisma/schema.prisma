@@ -101,6 +101,9 @@ model Project {
   featured         Boolean             @default(false)
   published        Boolean             @default(true)
   displayOrder     Int                 @default(0) @map("display_order")
+  collaboratorId   Int?                @map("collaborator_id")
+  collaborator     Collaborator?       @relation(fields: [collaboratorId], references: [id], onDelete: SetNull)
+  testimonials     Testimonial[]
   createdAt        DateTime            @default(now()) @map("created_at")
   updatedAt        DateTime            @updatedAt @map("updated_at")
   images           ProjectImage[]
@@ -110,6 +113,7 @@ model Project {
   @@index([category])
   @@index([published])
   @@index([featured])
+  @@index([collaboratorId])
   @@index([createdAt])
   @@map("projects")
 }
@@ -223,10 +227,16 @@ model Testimonial {
   approved     Boolean  @default(false)
   isVisible    Boolean  @default(false) @map("is_visible")
   displayOrder Int      @default(0) @map("display_order")
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
+  collaboratorId Int?          @map("collaborator_id")
+  projectId      Int?          @map("project_id")
+  collaborator   Collaborator? @relation(fields: [collaboratorId], references: [id], onDelete: SetNull)
+  project        Project?      @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
 
   @@index([approved, isVisible])
+  @@index([collaboratorId])
+  @@index([projectId])
   @@map("testimonials")
 }
 
@@ -332,3 +342,28 @@ model SocialLink {
 
   @@map("social_links")
 }
+
+// 16. Collaborator
+model Collaborator {
+  id               Int           @id @default(autoincrement())
+  name             String
+  logo             String?
+  partnerType      String?       @map("partner_type")
+  shortDescription String?       @db.Text @map("short_description")
+  phone            String?
+  whatsapp         String?
+  email            String?
+  website          String?
+  displayOrder     Int           @default(0) @map("display_order")
+  isActive         Boolean       @default(true) @map("is_active")
+  isFeatured       Boolean       @default(false) @map("is_featured")
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
+  projects         Project[]
+  testimonials     Testimonial[]
+
+  @@index([isActive, displayOrder])
+  @@index([isFeatured])
+  @@map("collaborators")
+}
+

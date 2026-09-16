@@ -6,6 +6,7 @@ import AboutSection from '../sections/AboutSection';
 import ServicesSection from '../sections/ServicesSection';
 import ProcessSection from '../sections/ProcessSection';
 import TechnologiesSection from '../sections/TechnologiesSection';
+import CollaboratorsSection from '../sections/CollaboratorsSection';
 import PortfolioSection from '../sections/PortfolioSection';
 import CaseStudiesSection from '../sections/CaseStudiesSection';
 import FounderSection from '../sections/FounderSection';
@@ -38,6 +39,7 @@ export default function HomePage() {
       <ServicesSection />
       <ProcessSection />
       <TechnologiesSection />
+      <CollaboratorsSection />
       <PortfolioSection />
       <CaseStudiesSection />
       <FounderSection />

@@ -5,6 +5,7 @@ import {
   Inbox,
   FileText,
   FolderGit2,
+  Handshake,
   Cpu,
   Users,
   UserCheck,
@@ -26,6 +27,7 @@ const mainNavItems = [
 const contentNavItems = [
   { name: 'Services', path: '/admin/services', icon: Cpu },
   { name: 'Projects', path: '/admin/projects', icon: FolderGit2 },
+  { name: 'Collaborators', path: '/admin/collaborators', icon: Handshake },
   { name: 'Case Studies', path: '/admin/case-studies', icon: BookOpen },
   { name: 'Founder', path: '/admin/founder', icon: UserCheck },
   { name: 'Team', path: '/admin/team', icon: Users },

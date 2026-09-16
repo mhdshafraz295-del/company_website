@@ -14,6 +14,8 @@ export const createTestimonialSchema = z.object({
   approved: z.boolean().optional().default(false),
   isVisible: z.boolean().optional().default(false),
   displayOrder: z.number().int().optional().default(0),
+  collaboratorId: z.number().int().optional().nullable(),
+  projectId: z.number().int().optional().nullable(),
 });
 
 export const updateTestimonialSchema = createTestimonialSchema.partial();

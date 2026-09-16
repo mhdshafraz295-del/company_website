@@ -2,7 +2,7 @@ import multer from 'multer';
 import path from 'path';
 
 // Allowed subfolders to prevent path traversal
-const ALLOWED_FOLDERS = ['projects', 'team', 'founder', 'case-studies', 'general'];
+const ALLOWED_FOLDERS = ['projects', 'team', 'founder', 'case-studies', 'collaborators', 'general'];
 
 // Allowed MIME types & extensions
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp'];

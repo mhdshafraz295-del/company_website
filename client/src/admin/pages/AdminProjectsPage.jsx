@@ -5,6 +5,7 @@ import { PublicDataContext } from '../../context/PublicDataContext';
 import ImageUploader from '../components/ImageUploader';
 import {
   FolderGit2,
+  Handshake,
   Plus,
   Edit2,
   Trash2,
@@ -29,6 +30,7 @@ const categories = [
 export default function AdminProjectsPage() {
   const publicContext = useContext(PublicDataContext);
   const [projects, setProjects] = useState([]);
+  const [collaboratorOptions, setCollaboratorOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
@@ -42,6 +44,7 @@ export default function AdminProjectsPage() {
     shortDescription: '',
     fullDescription: '',
     clientOrIndustry: '',
+    collaboratorId: '',
     coverImage: '',
     completionYear: new Date().getFullYear(),
     status: 'COMPLETED',
@@ -71,8 +74,20 @@ export default function AdminProjectsPage() {
     }
   };
 
+  const fetchCollaboratorOptions = async () => {
+    try {
+      const res = await api.get('/collaborators/admin/all');
+      if (res.data?.success) {
+        setCollaboratorOptions(res.data.data || []);
+      }
+    } catch (err) {
+      console.error('Failed to fetch collaborator options:', err);
+    }
+  };
+
   useEffect(() => {
     fetchProjects();
+    fetchCollaboratorOptions();
   }, []);
 
   const handleOpenAdd = () => {
@@ -84,6 +99,7 @@ export default function AdminProjectsPage() {
       shortDescription: '',
       fullDescription: '',
       clientOrIndustry: '',
+      collaboratorId: '',
       coverImage: '',
       completionYear: new Date().getFullYear(),
       status: 'COMPLETED',
@@ -111,6 +127,7 @@ export default function AdminProjectsPage() {
       shortDescription: project.shortDescription || '',
       fullDescription: project.fullDescription || '',
       clientOrIndustry: project.clientOrIndustry || '',
+      collaboratorId: project.collaboratorId || project.collaborator?.id || '',
       coverImage: project.coverImage || '',
       completionYear: project.completionYear || new Date().getFullYear(),
       status: project.status || 'COMPLETED',
@@ -161,6 +178,7 @@ export default function AdminProjectsPage() {
         featured: Boolean(formData.featured),
         published: Boolean(formData.published),
         displayOrder: Number(formData.displayOrder) || 0,
+        collaboratorId: formData.collaboratorId ? Number(formData.collaboratorId) : null,
         technologies: techArray,
       };
 
@@ -304,6 +322,12 @@ export default function AdminProjectsPage() {
                             )}
                           </div>
                           <div className="text-[11px] text-emerald-400 font-mono">/{project.slug}</div>
+                          {project.collaborator && (
+                            <div className="flex items-center space-x-1 text-[10px] text-cyan-400 font-medium mt-0.5">
+                              <Handshake className="w-3 h-3 shrink-0" />
+                              <span className="truncate max-w-[150px]">{project.collaborator.name}</span>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </td>
@@ -454,6 +478,25 @@ export default function AdminProjectsPage() {
                     className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
                   />
                 </div>
+              </div>
+
+              {/* Optional Collaborator / Partner Selection */}
+              <div className="space-y-1">
+                <label className="text-xs font-semibold text-slate-300">
+                  Collaborator / Partner <span className="text-slate-500 font-normal">(Optional)</span>
+                </label>
+                <select
+                  value={formData.collaboratorId}
+                  onChange={(e) => setFormData({ ...formData, collaboratorId: e.target.value })}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                >
+                  <option value="">None / Independent Project</option>
+                  {collaboratorOptions.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.name} {c.partnerType ? `(${c.partnerType})` : ''}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="space-y-1">

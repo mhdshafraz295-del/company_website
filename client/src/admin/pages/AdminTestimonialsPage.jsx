@@ -5,6 +5,8 @@ import { PublicDataContext } from '../../context/PublicDataContext';
 import ImageUploader from '../components/ImageUploader';
 import {
   MessageSquare,
+  Handshake,
+  FolderGit2,
   Plus,
   Edit2,
   Trash2,
@@ -21,6 +23,8 @@ import {
 export default function AdminTestimonialsPage() {
   const publicContext = useContext(PublicDataContext);
   const [testimonials, setTestimonials] = useState([]);
+  const [collaboratorOptions, setCollaboratorOptions] = useState([]);
+  const [projectOptions, setProjectOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
 
@@ -33,6 +37,8 @@ export default function AdminTestimonialsPage() {
     profileImage: '',
     rating: 5,
     review: '',
+    collaboratorId: '',
+    projectId: '',
     approved: true,
     isVisible: true,
     displayOrder: 0,
@@ -56,8 +62,22 @@ export default function AdminTestimonialsPage() {
     }
   };
 
+  const fetchOptions = async () => {
+    try {
+      const [collabRes, projRes] = await Promise.all([
+        api.get('/collaborators/admin/all'),
+        api.get('/projects/admin/all?limit=100'),
+      ]);
+      if (collabRes.data?.success) setCollaboratorOptions(collabRes.data.data || []);
+      if (projRes.data?.success) setProjectOptions(projRes.data.data || []);
+    } catch (err) {
+      console.error('Failed to fetch testimonial association options:', err);
+    }
+  };
+
   useEffect(() => {
     fetchTestimonials();
+    fetchOptions();
   }, []);
 
   const handleOpenAdd = () => {
@@ -69,6 +89,8 @@ export default function AdminTestimonialsPage() {
       profileImage: '',
       rating: 5,
       review: '',
+      collaboratorId: '',
+      projectId: '',
       approved: true,
       isVisible: true,
       displayOrder: testimonials.length + 1,
@@ -86,6 +108,8 @@ export default function AdminTestimonialsPage() {
       profileImage: t.profileImage || '',
       rating: t.rating || 5,
       review: t.review || '',
+      collaboratorId: t.collaboratorId || t.collaborator?.id || '',
+      projectId: t.projectId || t.project?.id || '',
       approved: t.approved !== false,
       isVisible: t.isVisible !== false,
       displayOrder: t.displayOrder || 0,
@@ -128,6 +152,8 @@ export default function AdminTestimonialsPage() {
         approved: Boolean(formData.approved),
         isVisible: Boolean(formData.isVisible),
         displayOrder: Number(formData.displayOrder) || 0,
+        collaboratorId: formData.collaboratorId ? Number(formData.collaboratorId) : null,
+        projectId: formData.projectId ? Number(formData.projectId) : null,
       };
 
       if (editingTestimonial) {
@@ -243,6 +269,22 @@ export default function AdminTestimonialsPage() {
                           <div className="text-[11px] text-slate-500">
                             {t.company ? `${t.company} ${t.position ? `(${t.position})` : ''}` : 'Private Client'}
                           </div>
+                          {(t.collaborator || t.project) && (
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {t.collaborator && (
+                                <span className="inline-flex items-center space-x-1 text-[9px] px-1.5 py-0.5 rounded bg-cyan-950/80 border border-cyan-800 text-cyan-400 font-medium">
+                                  <Handshake className="w-2.5 h-2.5" />
+                                  <span>{t.collaborator.name}</span>
+                                </span>
+                              )}
+                              {t.project && (
+                                <span className="inline-flex items-center space-x-1 text-[9px] px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-800 text-emerald-400 font-medium">
+                                  <FolderGit2 className="w-2.5 h-2.5" />
+                                  <span>{t.project.title}</span>
+                                </span>
+                              )}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </td>
@@ -380,6 +422,59 @@ export default function AdminTestimonialsPage() {
                         {r} Stars
                       </option>
                     ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Associations: Collaborator & Project */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-300">
+                    Collaborator / Partner <span className="text-slate-500 font-normal">(Optional)</span>
+                  </label>
+                  <select
+                    value={formData.collaboratorId}
+                    onChange={(e) => {
+                      const newCollabId = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        collaboratorId: newCollabId,
+                      }));
+                    }}
+                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-cyan-500"
+                  >
+                    <option value="">None / Direct Client Review</option>
+                    {collaboratorOptions.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.name} {c.partnerType ? `(${c.partnerType})` : ''}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-300">
+                    Related Project <span className="text-slate-500 font-normal">(Optional)</span>
+                  </label>
+                  <select
+                    value={formData.projectId}
+                    onChange={(e) => setFormData({ ...formData, projectId: e.target.value })}
+                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-cyan-500"
+                  >
+                    <option value="">None / General Review</option>
+                    {projectOptions
+                      .filter((p) => {
+                        if (!formData.collaboratorId) return true;
+                        return (
+                          p.collaboratorId === Number(formData.collaboratorId) ||
+                          p.collaborator?.id === Number(formData.collaboratorId)
+                        );
+                      })
+                      .map((p) => (
+                        <option key={p.id} value={p.id}>
+                          {p.title}
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>

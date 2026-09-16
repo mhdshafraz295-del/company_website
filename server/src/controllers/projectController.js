@@ -25,6 +25,15 @@ const projectInclude = {
       technology: true,
     },
   },
+  collaborator: {
+    select: {
+      id: true,
+      name: true,
+      logo: true,
+      partnerType: true,
+      website: true,
+    },
+  },
 };
 
 /**
@@ -224,6 +233,9 @@ export const createProject = async (req, res, next) => {
     if (data.coverImage !== undefined) {
       projectData.coverImage = data.coverImage;
     }
+    if (data.collaboratorId !== undefined) {
+      projectData.collaboratorId = data.collaboratorId ? Number(data.collaboratorId) : null;
+    }
 
     const project = await prisma.project.create({
       data: projectData,
@@ -277,6 +289,9 @@ export const updateProject = async (req, res, next) => {
 
     if (data.coverImage !== undefined) {
       updateData.coverImage = data.coverImage;
+    }
+    if (data.collaboratorId !== undefined) {
+      updateData.collaboratorId = data.collaboratorId ? Number(data.collaboratorId) : null;
     }
 
     await prisma.project.update({

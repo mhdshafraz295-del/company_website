@@ -1,6 +1,23 @@
 import prisma from '../utils/prisma.js';
 import { sendSuccess, sendError } from '../utils/response.js';
 
+const testimonialInclude = {
+  collaborator: {
+    select: {
+      id: true,
+      name: true,
+      logo: true,
+    },
+  },
+  project: {
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+    },
+  },
+};
+
 /**
  * Public: Get approved & visible testimonials
  * GET /api/testimonials
@@ -12,6 +29,7 @@ export const getPublicTestimonials = async (req, res, next) => {
         approved: true,
         isVisible: true,
       },
+      include: testimonialInclude,
       orderBy: { displayOrder: 'asc' },
     });
     return sendSuccess(res, 'Testimonials retrieved successfully', testimonials);
@@ -27,6 +45,7 @@ export const getPublicTestimonials = async (req, res, next) => {
 export const getAdminTestimonials = async (req, res, next) => {
   try {
     const testimonials = await prisma.testimonial.findMany({
+      include: testimonialInclude,
       orderBy: [{ displayOrder: 'asc' }, { createdAt: 'desc' }],
     });
     return sendSuccess(res, 'All testimonials retrieved for admin', testimonials);
@@ -42,8 +61,14 @@ export const getAdminTestimonials = async (req, res, next) => {
 export const createTestimonial = async (req, res, next) => {
   try {
     const data = req.body;
+    const createData = {
+      ...data,
+      collaboratorId: data.collaboratorId ? Number(data.collaboratorId) : null,
+      projectId: data.projectId ? Number(data.projectId) : null,
+    };
     const testimonial = await prisma.testimonial.create({
-      data,
+      data: createData,
+      include: testimonialInclude,
     });
     return sendSuccess(res, 'Testimonial created successfully', testimonial, 201);
   } catch (error) {
@@ -65,9 +90,18 @@ export const updateTestimonial = async (req, res, next) => {
       return sendError(res, 'Testimonial not found', 404);
     }
 
+    const updateData = { ...data };
+    if (data.collaboratorId !== undefined) {
+      updateData.collaboratorId = data.collaboratorId ? Number(data.collaboratorId) : null;
+    }
+    if (data.projectId !== undefined) {
+      updateData.projectId = data.projectId ? Number(data.projectId) : null;
+    }
+
     const updated = await prisma.testimonial.update({
       where: { id },
-      data,
+      data: updateData,
+      include: testimonialInclude,
     });
 
     return sendSuccess(res, 'Testimonial updated successfully', updated);

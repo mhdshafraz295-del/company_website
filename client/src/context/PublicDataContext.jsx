@@ -13,6 +13,7 @@ export const PublicDataProvider = ({ children }) => {
   const [testimonials, setTestimonials] = useState([]);
   const [faqs, setFaqs] = useState([]);
   const [caseStudies, setCaseStudies] = useState([]);
+  const [collaborators, setCollaborators] = useState([]);
 
   const [loading, setLoading] = useState({
     settings: true,
@@ -23,6 +24,7 @@ export const PublicDataProvider = ({ children }) => {
     testimonials: true,
     faqs: true,
     caseStudies: true,
+    collaborators: true,
   });
 
   const [errors, setErrors] = useState({});
@@ -148,6 +150,21 @@ export const PublicDataProvider = ({ children }) => {
     }
   }, []);
 
+  // 9. Fetch Collaborators & Partners
+  const fetchCollaborators = useCallback(async () => {
+    try {
+      const res = await api.get('/collaborators');
+      if (res.data?.success) {
+        setCollaborators(res.data.data || []);
+      }
+    } catch (err) {
+      console.warn('Unable to load collaborators:', err.message);
+      setErrors((prev) => ({ ...prev, collaborators: true }));
+    } finally {
+      setLoading((prev) => ({ ...prev, collaborators: false }));
+    }
+  }, []);
+
   useEffect(() => {
     fetchSettings();
     fetchServices();
@@ -157,6 +174,7 @@ export const PublicDataProvider = ({ children }) => {
     fetchTestimonials();
     fetchFaqs();
     fetchCaseStudies();
+    fetchCollaborators();
   }, [
     fetchSettings,
     fetchServices,
@@ -166,6 +184,7 @@ export const PublicDataProvider = ({ children }) => {
     fetchTestimonials,
     fetchFaqs,
     fetchCaseStudies,
+    fetchCollaborators,
   ]);
 
   // Master refetch function for instant public site updates after Admin CMS edits
@@ -178,6 +197,7 @@ export const PublicDataProvider = ({ children }) => {
     fetchTestimonials();
     fetchFaqs();
     fetchCaseStudies();
+    fetchCollaborators();
   }, [
     fetchSettings,
     fetchServices,
@@ -187,6 +207,7 @@ export const PublicDataProvider = ({ children }) => {
     fetchTestimonials,
     fetchFaqs,
     fetchCaseStudies,
+    fetchCollaborators,
   ]);
 
   const value = {
@@ -199,6 +220,7 @@ export const PublicDataProvider = ({ children }) => {
     testimonials,
     faqs,
     caseStudies,
+    collaborators,
     loading,
     errors,
     refetchAll,
@@ -209,6 +231,7 @@ export const PublicDataProvider = ({ children }) => {
     refetchTestimonials: fetchTestimonials,
     refetchFaqs: fetchFaqs,
     refetchCaseStudies: fetchCaseStudies,
+    refetchCollaborators: fetchCollaborators,
     refetchSettings: fetchSettings,
   };
 

@@ -33,6 +33,7 @@ export const createProjectSchema = z.object({
   published: z.boolean().optional().default(true),
   displayOrder: z.number().int().optional().default(0),
   technologies: z.array(z.string().trim()).optional().default([]),
+  collaboratorId: z.number().int().optional().nullable(),
 });
 
 export const updateProjectSchema = createProjectSchema.partial();

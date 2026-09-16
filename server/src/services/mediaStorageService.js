@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const baseUploadsDir = path.resolve(__dirname, '../../uploads');
 
-const ALLOWED_FOLDERS = ['projects', 'team', 'founder', 'case-studies', 'general'];
+const ALLOWED_FOLDERS = ['projects', 'team', 'founder', 'case-studies', 'collaborators', 'general'];
 
 function getCloudinaryConfig() {
   const cloudName = process.env.CLOUDINARY_CLOUD_NAME || config.cloudinary?.cloudName;

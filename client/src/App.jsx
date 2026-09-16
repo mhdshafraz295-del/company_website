@@ -20,6 +20,7 @@ import AdminEnquiriesPage from './admin/pages/AdminEnquiriesPage';
 import AdminQuotesPage from './admin/pages/AdminQuotesPage';
 import AdminServicesPage from './admin/pages/AdminServicesPage';
 import AdminProjectsPage from './admin/pages/AdminProjectsPage';
+import AdminCollaboratorsPage from './admin/pages/AdminCollaboratorsPage';
 import AdminCaseStudiesPage from './admin/pages/AdminCaseStudiesPage';
 import AdminFounderPage from './admin/pages/AdminFounderPage';
 import AdminTeamPage from './admin/pages/AdminTeamPage';
@@ -72,6 +73,7 @@ export default function App() {
               <Route path="quotes" element={<AdminQuotesPage />} />
               <Route path="services" element={<AdminServicesPage />} />
               <Route path="projects" element={<AdminProjectsPage />} />
+              <Route path="collaborators" element={<AdminCollaboratorsPage />} />
               <Route path="case-studies" element={<AdminCaseStudiesPage />} />
               <Route path="founder" element={<AdminFounderPage />} />
               <Route path="team" element={<AdminTeamPage />} />
